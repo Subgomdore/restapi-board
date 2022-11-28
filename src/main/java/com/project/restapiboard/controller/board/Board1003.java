@@ -1,5 +1,5 @@
 package com.project.restapiboard.controller.board;
 
-// 홍승원
-public class Board1001_Controller {
+//황인덕
+public class Board1003 {
 }
