@@ -12,17 +12,16 @@ import javax.persistence.*;
         , initialValue = 1
         , allocationSize = 1
 )
-
+@Embeddable
 @Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE
-            , generator = "USER_SEQ_GENERATOR")
-    private Long user_no;
-
+    @GeneratedValue
     private String user_id;
+
     private String user_pass;
     private String user_email;
+
 
 }
