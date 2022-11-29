@@ -11,4 +11,8 @@ public class PageController {
         return "loginform";
     }
 
+
+    @RequestMapping("/userJoin")
+    public String UserJoinForm(){return "user/UserJoinForm";}
+
 }

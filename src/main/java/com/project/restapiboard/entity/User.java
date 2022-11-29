@@ -13,7 +13,7 @@ import javax.persistence.*;
         , allocationSize = 1
 )
 
-@Table(name = "user")
+@Table(name = "user77")
 public class User {
 
     @Id

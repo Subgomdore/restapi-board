@@ -15,7 +15,7 @@
     <name>restapi-board</name>
     <description>restapi-board</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>8</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -32,6 +32,11 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
+        </dependency>
+        <!-- 암호화 (토큰) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
