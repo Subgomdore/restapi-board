@@ -26,9 +26,9 @@ public class UserService {
 
     public User login(User user) {
 
-        Optional<User> findUser = userRepository.findById(user.getUser_id());
-        // ?? 왜 Optional 처리를 해야 될까
-        return userRepository.getOne(user.getUser_id());
+        userRepository.findById(user.getUser_id());
+        // userRepository.findById(user.getUser_id()); 를 선행처리하지 않으면 Exception 발생
+        return userRepository.getReferenceById(user.getUser_id());
     }
 
 }

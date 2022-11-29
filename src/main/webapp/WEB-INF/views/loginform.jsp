@@ -6,58 +6,79 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-    <link rel="stylesheet" type="text/css" href="resource/css/admin.css"/>
-    <link rel="stylesheet" type="text/css" href="resource/css/member.css"/>
+<%--    <link rel="stylesheet" type="text/css" href="resource/css/admin.css"/>--%>
+<%--    <link rel="stylesheet" type="text/css" href="resource/css/member.css"/>--%>
     <!-- <script src="./js/jquery.js"></script> -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 
     <script>
         function check() {
-            if ($.trim($("#id").val()) == "") {
+            var user_id = $("user_id").val();
+            var user_pass = $("user_pass").val();
+
+            if ($.trim($("#user_id").val()) == "") {
                 alert("로그인 아이디를 입력하세요!");
                 $("#id").val("").focus();
                 return false;
             }
-            if ($.trim($("#pwd").val()) == "") {
+            if ($.trim($("#user_pass").val()) == "") {
                 alert("비밀번호를 입력하세요!");
                 $("#pwd").val("").focus();
                 return false;
             }
-            $.post('/user/signIn',
-
-            )
-        }
-
-        /*비번찾기 공지창*/
-        function pwd_find() {
-            window.open("pwd_find.do", "비번찾기", "width=450,height=500");
-            //자바 스크립트에서 window객체의 open("공지창경로와 파일명","공지창이름","공지창속성")
-            //메서드로 새로운 공지창을 만듬.폭이 400,높이가 400인 새로운 공지창을 만듬.단위는 픽셀
         }
     </script>
+        <script>
+            $(function () {
+                $('#loginBtn').click(function () {
+                    const user_id = $('#user_id').val();
+                    const user_pass = $('#user_pass').val();
+                    const data = {
+                        user_id:user_id,
+                        user_pass:user_pass
+                    }
+                    alert(data);
+                    console.log(data);
+
+                    $.ajax({
+                        url : "/user/test",
+                        type : "POST",
+                        data : data,
+                        data_type: "json",
+                        success : function(data) {
+                            alert(data);
+                        },
+                        error : function(e) {
+                            alert("오류");
+                        }
+                    })
+                })
+            })
+        </script>
+
 
 </head>
 <body>
 <div id="login_wrap">
     <h2 class="login_title">로그인</h2>
-    <form onsubmit="return check()">
+    <form id="frm" name="frm" onsubmit="return check()">
         <table id="login_t">
             <tr>
                 <th>아이디</th>
                 <td>
-                    <input name="id" id="id" size="20" class="input_box"/>
+                    <input id="user_id" name="user_id" size="20" class="input_box"/>
                 </td>
             </tr>
 
             <tr>
                 <th>비밀번호</th>
                 <td>
-                    <input type="password" name="pwd" id="pwd" size="20" class="input_box"/>
+                    <input type="password" id="user_pass" name="user_pass" size="20" class="input_box"/>
                 </td>
             </tr>
         </table>
         <div id="login_menu">
-            <input type="submit" value="로그인" class="input_button"/>
+            <input type="submit" id="loginBtn" value="로그인" class="input_button"/>
             <input type="reset" value="취소" class="input_button" onclick="$('#id').focus();"/>
             <input type="button" value="회원가입" class="input_button" onclick="location=''"/>
             <input type="button" value="비번찾기" class="input_button" onclick="pwd_find()"/>

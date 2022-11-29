@@ -11,4 +11,9 @@ public class PageController {
         return "loginform";
     }
 
+    @RequestMapping("/blist")
+    public String BoardList(){
+        return "boardlist";
+    }
+
 }
