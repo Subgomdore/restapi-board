@@ -6,8 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-    <link rel="stylesheet" type="text/css" href="./css/admin.css" />
-    <link rel="stylesheet" type="text/css" href="./css/member.css" />
+    <link rel="stylesheet" type="text/css" href="resource/css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="resource/css/member.css" />
     <!-- <script src="./js/jquery.js"></script> -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 
@@ -25,6 +25,13 @@
             }
         }
 
+        function login(){
+            $.ajax({
+                type: 'post'
+                url :
+            })
+        }
+
         /*비번찾기 공지창*/
         function pwd_find(){
             window.open("pwd_find.do","비번찾기","width=450,height=500");
@@ -36,8 +43,7 @@
 <body>
 <div id="login_wrap">
     <h2 class="login_title">로그인</h2>
-    <form method="post" action="member_login_ok.do"
-          onsubmit="return check()">
+    <form onsubmit="return check()">
         <table id="login_t">
             <tr>
                 <th>아이디</th>
@@ -55,12 +61,9 @@
         </table>
         <div id="login_menu">
             <input type="submit" value="로그인" class="input_button" />
-            <input type="reset" value="취소" class="input_button"
-                   onclick="$('#id').focus();" />
-            <input type="button" value="회원가입" class="input_button"
-                   onclick="location='member_join.do'" />
-            <input type="button" value="비번찾기" class="input_button"
-                   onclick="pwd_find()" />
+            <input type="reset" value="취소" class="input_button" onclick="$('#id').focus();" />
+            <input type="button" value="회원가입" class="input_button" onclick="location=''" />
+            <input type="button" value="비번찾기" class="input_button" onclick="pwd_find()" />
         </div>
     </form>
 </div>

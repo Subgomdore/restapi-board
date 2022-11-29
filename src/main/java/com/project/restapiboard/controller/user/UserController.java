@@ -23,7 +23,12 @@ public class UserController {
     @PostMapping("/save")
     public void createUser(@RequestBody User user) {
         User saveUser = userService.save(user);
+    }
 
+    @PostMapping("/signIn")
+    public User loginUser(@RequestBody User user) {
+        User loginUser = userService.login(user);
+        return loginUser;
     }
 
 

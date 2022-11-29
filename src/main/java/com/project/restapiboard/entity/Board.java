@@ -2,14 +2,11 @@ package com.project.restapiboard.entity;
 
 import lombok.Data;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "Board")
+@Table(name = "board")
 public class Board {
 
     @Id
@@ -25,8 +22,12 @@ public class Board {
     private int re_step;
     private int re_level;
 
-    @Embedded
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "boardtype_no")
+    private BoardType boardType;
 
 }
