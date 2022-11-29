@@ -21,4 +21,8 @@ public class UserService {
         return  userRepository.save(user);
     }
 
+    public boolean idCheck(String user_id){
+        return userRepository.existsById(user_id);
+    }
+
 }

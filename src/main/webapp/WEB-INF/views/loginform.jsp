@@ -58,7 +58,7 @@
             <input type="reset" value="취소" class="input_button"
                    onclick="$('#id').focus();" />
             <input type="button" value="회원가입" class="input_button"
-                   onclick="location='member_join.do'" />
+                   onclick="location='/userJoin'" />
             <input type="button" value="비번찾기" class="input_button"
                    onclick="pwd_find()" />
         </div>

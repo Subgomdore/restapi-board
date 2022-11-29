@@ -25,6 +25,11 @@ public class UserController {
         User saveUser = userService.save(user);
 
     }
+    @GetMapping("/IdCheck")
+    public boolean idCheck(@RequestParam("user_id") String user_id){
+        boolean cnt = userService.idCheck(user_id);
+        return cnt;
+    }
 
 
 }
