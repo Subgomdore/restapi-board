@@ -11,7 +11,6 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue
     private String user_id;
 
     private String user_pass;

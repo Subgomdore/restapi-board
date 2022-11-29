@@ -132,6 +132,28 @@
                 $('#user_email').focus();
                 return false;
             }
+
+            let data = {
+                user_id : $("#user_id").val(),
+                user_pass : $("#user_pass").val(),
+                user_email : $("#user_email").val()
+            }
+            console.log(data);
+
+            $.ajax({
+                url: './user/save',
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success:function(User) {
+                    alert("회원가입에 성공했습니다.");
+                    location.href="/";
+                },
+                error:function (){
+                    alert("에러입니다. 아이디,비밀번호, 이메일 확인 후 관리자에게 문의해주세요.");
+                }
+            })
         });
     });
 </script>

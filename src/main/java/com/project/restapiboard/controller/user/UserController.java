@@ -21,9 +21,9 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public void createUser(@RequestBody User user) {
+    public User createUser(@RequestBody User user) {
         User saveUser = userService.save(user);
-
+        return saveUser;
     }
     @GetMapping("/IdCheck")
     public boolean idCheck(@RequestParam("user_id") String user_id){
