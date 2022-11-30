@@ -28,6 +28,13 @@ public class UserController {
         User saveUser = userService.save(user);
     }
 
+//    @PostMapping("/signin")
+//    public int loginUser(@RequestBody User user) {
+//        int result = -1;
+//        User loginUser = userService.login(user);
+//        return result;
+//    }
+
     @PostMapping("/idCheck")
     public int idCheck(@RequestBody User user) throws Exception {
         User idCheck = userService.idCheck(user);
@@ -38,25 +45,5 @@ public class UserController {
         }
         return result;
     }
-
-    @PostMapping("/signin")
-    public int loginUser(@RequestBody User user) {
-        System.out.println("signin");
-        int result = -1;
-        User loginUser = userService.login(user);
-        if (user.getUser_pass().equals(loginUser.getUser_pass())) {
-            result = 777;
-            log.info("리턴성공" + result);
-            return result;
-        }
-        log.info("리턴실패" + result);
-        return result;
-    }
-
-    @PostMapping("/test")
-    public String Test(@RequestBody String user_id, String user_pass) {
-        return "test";
-    }
-
 
 }
