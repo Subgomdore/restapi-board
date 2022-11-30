@@ -14,6 +14,9 @@ public class PageController {
     @RequestMapping("/join")
     public String UserJoin(){ return "joinform";}
 
+    @RequestMapping("/jointest")
+    public String test(){ return "jointest";}
+
     @RequestMapping("/blist")
     public String BoardList(){
         return "boardlist";

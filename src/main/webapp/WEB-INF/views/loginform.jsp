@@ -1,16 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@include file="resources/cssfile.jsp" %>
+<%--<%@include file="resources/loginformScript.jsp" %>--%>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-    <%--    <link rel="stylesheet" type="text/css" href="resource/css/admin.css"/>--%>
-    <%--    <link rel="stylesheet" type="text/css" href="resource/css/member.css"/>--%>
-    <!-- <script src="./js/jquery.js"></script> -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-
     <script>
         function check() {
             if ($.trim($("#user_id").val()) == "") {
@@ -23,10 +20,7 @@
                 $("#pwd").val("").focus();
                 return false;
             }
-        }
-    </script>
-    <script>
-        $(function () {
+
             $('#loginBtn').click(function () {
                 const user_id = $('#user_id').val();
                 const user_pass = $('#user_pass').val();
@@ -42,10 +36,10 @@
                     contentType: 'application/json',
                     data: data,
                     success: function (response) {
-                        if(response ==1) {
-                        alert(response);
-                        }else {
-                            alert('?');
+                        console.log(response);
+                        if(response==777){
+                        console.log(5*5);
+                            location.href="/blist"
                         }
                     },
                     error: function (e) {
@@ -53,10 +47,8 @@
                     }
                 })
             })
-        })
+        }
     </script>
-
-
 </head>
 <body>
 <div id="login_wrap">

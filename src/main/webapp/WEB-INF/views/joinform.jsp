@@ -1,32 +1,49 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="resources/cssfile.jsp" %>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>회원가입폼</title>
-    <link rel="stylesheet" type="text/css" href="./css/admin.css"/>
-    <link rel="stylesheet" type="text/css" href="./css/member.css"/>
-    <!-- <script src="/springmember/js/jquery.js"></script> -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="./js/member.js"></script>
-    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     <script>
-        //우편번호, 주소 Daum API
-        function openDaumPostcode() {
-            new daum.Postcode({
-                oncomplete: function (data) {
-                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-                    // 우편번호와 주소 정보를 해당 필드에 넣고, 커서를 상세주소 필드로 이동한다.
-                    document.getElementById('join_zip1').value = data.zonecode;
-                    document.getElementById('join_addr1').value = data.address;
+        function id_check() {
+            var id = $('#user_id').val(); //id값이 "id"인 입력란의 값을 저장
+            $.ajax({
+                url: './idCheck', //Controller에서 요청 받을 주소
+                type: 'post', //POST 방식으로 전달
+                data: {id: id},
+                success: function (cnt) { //컨트롤러에서 넘어온 cnt값을 받는다
+                    if (cnt == 0) { //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
+                        $('.id_ok').css("display", "inline-block");
+                        $('.id_already').css("display", "none");
+                    } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                        $('.id_already').css("display", "inline-block");
+                        $('.id_ok').css("display", "none");
+                        alert("아이디를 다시 입력해주세요");
+                        $('#id').val('');
+                    }
+                },
+                error: function () {
+                    alert("에러입니다");
                 }
-            }).open();
-        }
+            });
+        };
     </script>
+    <style>
+        .id_ok{
+            color:#008000;
+            display: none;
+        }
 
+        .id_already{
+            color:#6A82FB;
+            display: none;
+        }
+    </style>
+</head>
 </head>
 <body>
 <div id="join_wrap">
@@ -38,9 +55,8 @@
             <tr>
                 <th>회원아이디</th>
                 <td>
-                    <input name="join_id" id="join_id" size="14" class="input_box"/>
-                    <input type="button" value="아이디 중복체크" class="input_button"
-                           onclick="id_check()"/>
+                    <input name="user_id" id="user_id" size="14" class="input_box"/>
+                    <input type="button" value="아이디 중복체크" class="input_button" oninput="id_check()"/>
                     <div id="idcheck"></div>
                 </td>
             </tr>

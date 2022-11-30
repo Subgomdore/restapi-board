@@ -28,22 +28,33 @@ public class UserController {
         User saveUser = userService.save(user);
     }
 
-    @PostMapping("/signin")
-    public int loginUser(@RequestBody User user) {
-        UserController.log.info("-----------------");
-        UserController.log.info("singin-controller");
-        int result = 0;
-
-        User loginUser = userService.login(user);
-        if(user.getUser_id().equals(loginUser.getUser_id())){
-            result =1;
+    @PostMapping("/idCheck")
+    public int idCheck(@RequestBody User user) throws Exception {
+        User idCheck = userService.idCheck(user);
+        int result = -44;
+        if(idCheck.getUser_id().equals(user.getUser_id())){
+            result = 0;
             return result;
         }
         return result;
     }
 
+    @PostMapping("/signin")
+    public int loginUser(@RequestBody User user) {
+        System.out.println("signin");
+        int result = -1;
+        User loginUser = userService.login(user);
+        if (user.getUser_pass().equals(loginUser.getUser_pass())) {
+            result = 777;
+            log.info("리턴성공" + result);
+            return result;
+        }
+        log.info("리턴실패" + result);
+        return result;
+    }
+
     @PostMapping("/test")
-    public String Test(@RequestBody  String user_id, String user_pass){
+    public String Test(@RequestBody String user_id, String user_pass) {
         return "test";
     }
 

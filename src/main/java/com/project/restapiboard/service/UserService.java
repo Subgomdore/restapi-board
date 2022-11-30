@@ -24,11 +24,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User login(User user) {
+    public User idCheck(User user){
 
-        userRepository.findById(user.getUser_id());
-        // userRepository.findById(user.getUser_id()); 를 선행처리하지 않으면 Exception 발생
-        return userRepository.getReferenceById(user.getUser_id());
+        Optional<User> idCheck = userRepository.findById(user.getUser_id());
+        return idCheck.get();
+    }
+
+    public User login(User user) {
+        Optional<User> loginUser = userRepository.findById(user.getUser_id());
+        return loginUser.get();
     }
 
 }
