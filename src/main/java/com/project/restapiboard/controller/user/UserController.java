@@ -2,15 +2,17 @@ package com.project.restapiboard.controller.user;
 
 import com.project.restapiboard.entity.User;
 import com.project.restapiboard.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/user")
 public class UserController {
+
 
     @Autowired
     private UserService userService;
@@ -28,11 +30,9 @@ public class UserController {
 
     @PostMapping("/signin")
     public int loginUser(@RequestBody User user) {
-        System.out.println("signin");
+        UserController.log.info("-----------------");
+        UserController.log.info("singin-controller");
         int result = 0;
-
-        System.out.println(user.getUser_id());
-        System.out.println(user.getUser_pass());
 
         User loginUser = userService.login(user);
         if(user.getUser_id().equals(loginUser.getUser_id())){
@@ -43,8 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/test")
-    public String Test(){
-        System.out.println("test");
+    public String Test(@RequestBody  String user_id, String user_pass){
         return "test";
     }
 

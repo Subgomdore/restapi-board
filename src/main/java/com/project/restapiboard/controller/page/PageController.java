@@ -11,6 +11,9 @@ public class PageController {
         return "loginform";
     }
 
+    @RequestMapping("/join")
+    public String UserJoin(){ return "joinform";}
+
     @RequestMapping("/blist")
     public String BoardList(){
         return "boardlist";

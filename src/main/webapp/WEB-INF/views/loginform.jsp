@@ -6,16 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-<%--    <link rel="stylesheet" type="text/css" href="resource/css/admin.css"/>--%>
-<%--    <link rel="stylesheet" type="text/css" href="resource/css/member.css"/>--%>
+    <%--    <link rel="stylesheet" type="text/css" href="resource/css/admin.css"/>--%>
+    <%--    <link rel="stylesheet" type="text/css" href="resource/css/member.css"/>--%>
     <!-- <script src="./js/jquery.js"></script> -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 
     <script>
         function check() {
-            var user_id = $("user_id").val();
-            var user_pass = $("user_pass").val();
-
             if ($.trim($("#user_id").val()) == "") {
                 alert("로그인 아이디를 입력하세요!");
                 $("#id").val("").focus();
@@ -28,33 +25,36 @@
             }
         }
     </script>
-        <script>
-            $(function () {
-                $('#loginBtn').click(function () {
-                    const user_id = $('#user_id').val();
-                    const user_pass = $('#user_pass').val();
-                    const data = {
-                        user_id:user_id,
-                        user_pass:user_pass
-                    }
-                    alert(data);
-                    console.log(data);
+    <script>
+        $(function () {
+            $('#loginBtn').click(function () {
+                const user_id = $('#user_id').val();
+                const user_pass = $('#user_pass').val();
+                const data = JSON.stringify({
+                    user_id: user_id,
+                    user_pass: user_pass
+                })
 
-                    $.ajax({
-                        url : "/user/test",
-                        type : "POST",
-                        data : data,
-                        data_type: "json",
-                        success : function(data) {
-                            alert(data);
-                        },
-                        error : function(e) {
-                            alert("오류");
+                $.ajax({
+                    url: "/user/signin",
+                    type: 'post',
+                    data_type: "json",
+                    contentType: 'application/json',
+                    data: data,
+                    success: function (response) {
+                        if(response ==1) {
+                        alert(response);
+                        }else {
+                            alert('?');
                         }
-                    })
+                    },
+                    error: function (e) {
+                        alert("오류");
+                    }
                 })
             })
-        </script>
+        })
+    </script>
 
 
 </head>
@@ -79,7 +79,7 @@
         </table>
         <div id="login_menu">
             <input type="submit" id="loginBtn" value="로그인" class="input_button"/>
-            <input type="reset" value="취소" class="input_button" onclick="$('#id').focus();"/>
+            <input type="reset" value="취소" class="input_button" onclick="$('#user_id').focus();"/>
             <input type="button" value="회원가입" class="input_button" onclick="location=''"/>
             <input type="button" value="비번찾기" class="input_button" onclick="pwd_find()"/>
         </div>

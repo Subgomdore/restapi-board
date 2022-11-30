@@ -1,15 +1,25 @@
 package com.project.restapiboard.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@SequenceGenerator(
+        name = "BOARD_SEQ_GENERATOR"
+        , sequenceName = "BOARD_SEQ"
+        , initialValue = 1
+        , allocationSize = 1
+)
 @Table(name = "board")
 public class Board {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE
+            , generator = "BOARD_SEQ_GENERATOR")
     private Long board_no;
 
     private String board_subject;
@@ -22,9 +32,10 @@ public class Board {
     private int re_step;
     private int re_level;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id") // user 테이블의 PK를 조인.
     private User user;
+
 
     @ManyToOne
     @JoinColumn(name = "boardtype_no")

@@ -19,6 +19,7 @@ public class BoardType {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE
             , generator = "BOARDTYPE_SEQ_GENERATOR")
+    @Column(name = "boardtype_no")
     private Long boardtype_no;
 
     private String boardtype_name;
