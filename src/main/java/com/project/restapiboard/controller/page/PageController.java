@@ -32,13 +32,13 @@ public class PageController {
         return "boardlist";
     }
 
-    @RequestMapping("/signin")
-    public String signIn(User user) {
-        String userPw = userRepository.findById(user.getUser_id()).get().getUser_pass();
-        if (user.getUser_pass().equals(userPw)) {
-            return "redirect:/boardlist";
-        }
-        return "redirect:/";
-    }
+//    @RequestMapping("/signin")
+//    public String signIn(User user) {
+//        String userPw = userRepository.findById(user.getUser_id()).get().getUser_pass();
+//        if (user.getUser_pass().equals(userPw)) {
+//            return "redirect:/boardlist";
+//        }
+//        return "redirect:/";
+//    }
 
 }

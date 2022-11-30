@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-
     @Autowired
     private UserService userService;
 
@@ -28,12 +27,14 @@ public class UserController {
         User saveUser = userService.save(user);
     }
 
-//    @PostMapping("/signin")
-//    public int loginUser(@RequestBody User user) {
-//        int result = -1;
-//        User loginUser = userService.login(user);
-//        return result;
-//    }
+    @PostMapping("/signin")
+    public int loginUser(@RequestBody User user) {
+        log.info(user.getUser_pass());
+        int result = -1;
+        User loginUser = userService.login(user);
+        log.info(loginUser.getUser_pass());
+        return result;
+    }
 
     @PostMapping("/idCheck")
     public int idCheck(@RequestBody User user) throws Exception {
