@@ -41,9 +41,10 @@
                     data: data,
                     success: function (response) {
                         if (response == 1) {
-                            alert(response);
+                            alert("비번일치");
+                            location.href='boardlist'
                         } else {
-                            alert('?');
+                            alert('비번틀림');
                         }
                     },
                     error: function (e) {

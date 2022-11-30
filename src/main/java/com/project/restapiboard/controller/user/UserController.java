@@ -33,6 +33,11 @@ public class UserController {
         int result = -1;
         User loginUser = userService.login(user);
         log.info(loginUser.getUser_pass());
+
+        if(loginUser.getUser_pass().equals(user.getUser_pass())){
+            result = 1;
+            return result;
+        }
         return result;
     }
 
