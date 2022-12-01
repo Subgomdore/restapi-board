@@ -9,23 +9,19 @@
     <title>로그인</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
-        function check() {
-            if ($.trim($("#user_id").val()) == "") {
-                alert("로그인 아이디를 입력하세요!");
-                $("#id").val("").focus();
-                return false;
-            }
-            if ($.trim($("#user_pass").val()) == "") {
-                alert("비밀번호를 입력하세요!");
-                $("#pwd").val("").focus();
-                return false;
-            }
-
-        }
-    </script>
-    <script>
         $(function () {
             $('#loginBtn').click(function () {
+                if ($.trim($("#user_id").val()) == "") {
+                    alert("로그인 아이디를 입력하세요!");
+                    $("#id").val("").focus();
+                    return false;
+                }
+                if ($.trim($("#user_pass").val()) == "") {
+                    alert("비밀번호를 입력하세요!");
+                    $("#pwd").val("").focus();
+                    return false;
+                }
+
                 const user_id = $('#user_id').val();
                 const user_pass = $('#user_pass').val();
                 const data = JSON.stringify({
@@ -41,8 +37,7 @@
                     data: data,
                     success: function (response) {
                         if (response == 1) {
-                            alert("비번일치");
-                            location.href='boardlist'
+                            location.href = 'board'
                         } else {
                             alert('비번틀림');
                         }

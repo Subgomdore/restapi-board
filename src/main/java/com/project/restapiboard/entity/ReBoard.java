@@ -1,6 +1,5 @@
-//package com.project.restapiboard.entity;
-//
-//import lombok.Data;
-//
-//public class ReBoard {
-//}
+package com.project.restapiboard.entity;
+
+
+public class ReBoard {
+}

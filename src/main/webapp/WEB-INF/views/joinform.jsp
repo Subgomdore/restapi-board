@@ -78,11 +78,27 @@
             const user_pass = $('#user_pass').val();
             const user_email = $('#user_mail').val() + '@' + $('#user_mail2').val();
 
-            if (document.getElementById('already').innerText == 'already') {
+            if (document.getElementById('already').innerText == '사용중') {
                 alert("사용중인 아이디 입니다");
                 $("#user_id").val("").focus();
                 return false;
             }
+            if ($.trim($("#user_pass").val()) == "") {
+                alert("비밀번호를 입력하세요!");
+                $("#user_pass").val("").focus();
+                return false;
+            }
+            if ($.trim($("#user_pass2").val()) == "") {
+                alert("확인 비밀번호를 입력하세요!");
+                $("#user_pass2").val("").focus();
+                return false;
+            }
+            if ($.trim($("#user_pass").val()) != $.trim($("#user_pass2").val())) {
+                alert("입력한 비밀번호가 일치하지 않습니다.");
+                $("#user_pass2").val("").focus();
+                return false;
+            }
+
 
             $.ajax({
                 url: 'user/save',
@@ -127,8 +143,8 @@
                 <td>
                     <input name="user_id" id="user_id" placeholder="ID"
                            required oninput="id_check()" size="14" class="input_box"/>
-                    <span id="already" class="id_already"> already </span>
-                    <span id="ok" class="id_ok"> ok </span>
+                    <span id="already" class="id_already"> 사용중 </span>
+                    <span id="ok" class="id_ok"> 사용가능 </span>
                 </td>
             </tr>
             <tr>
