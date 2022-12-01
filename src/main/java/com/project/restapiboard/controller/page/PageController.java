@@ -27,7 +27,7 @@ public class PageController {
         return "jointest";
     }
 
-    @RequestMapping("/boardlist")
+    @RequestMapping("/board")
     public String BoardList() {
         return "boardlist";
     }
