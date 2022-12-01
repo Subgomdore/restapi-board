@@ -10,57 +10,62 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
         function id_check() {
-            var id = $('#user_id').val(); //id값이 "id"인 입력란의 값을 저장
+            const user_id = $('#user_id').val(); //id값이 "id"인 입력란의 값을 저장
             $.ajax({
-                url: './idCheck', //Controller에서 요청 받을 주소
+                url: 'user/idCheck', //Controller에서 요청 받을 주소
                 type: 'post', //POST 방식으로 전달
-                data: {id: id},
+                data_type: "json",
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    user_id:user_id
+                }),
                 success: function (cnt) { //컨트롤러에서 넘어온 cnt값을 받는다
-                    if (cnt == 0) { //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
+                    console.log(cnt)
+                    console.log(user_id.length)
+                    if (cnt == 0 && user_id.length > 0) { //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
                         $('.id_ok').css("display", "inline-block");
                         $('.id_already').css("display", "none");
-                    } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                    } else if (cnt == 1 && user_id.length > 0){ // cnt가 1일 경우 -> 이미 존재하는 아이디
                         $('.id_already').css("display", "inline-block");
                         $('.id_ok').css("display", "none");
-                        alert("아이디를 다시 입력해주세요");
-                        $('#id').val('');
+                        console.log('중복된아이디')
+                    } else {
+                        $('.id_ok').css("display", "none");
+                        $('.id_already').css("display","none");
                     }
                 },
                 error: function () {
-                    alert("에러입니다");
+                    console.log("err");
                 }
             });
         };
     </script>
     <style>
         .id_ok{
-            color:#008000;
+            color:#6A82FB;
             display: none;
         }
 
         .id_already{
-            color:#6A82FB;
+            color:#FF0000;
             display: none;
         }
     </style>
 </head>
-</head>
 <body>
 <div id="join_wrap">
     <h2 class="join_title">회원가입</h2>
-    <form name="f" method="post" action="member_join_ok.do"
-          onsubmit="return check()" enctype="multipart/form-data">
-        <!-- 이진파일을 업로드 할려면 enctype 속성을 지정 -->
+    <form name="f" method="post" onsubmit="return check()" enctype="multipart/form-data">
         <table id="join_t">
             <tr>
                 <th>회원아이디</th>
                 <td>
-                    <input name="user_id" id="user_id" size="14" class="input_box"/>
-                    <input type="button" value="아이디 중복체크" class="input_button" oninput="id_check()"/>
-                    <div id="idcheck"></div>
+                    <input name="user_id" id="user_id" placeholder="ID"
+                           required oninput="id_check()" size="14" class="input_box"/>
+                    <span class="id_already"> already </span>
+                    <span class="id_ok"> ok </span>
                 </td>
             </tr>
-
             <tr>
                 <th>회원비번</th>
                 <td>
@@ -80,7 +85,7 @@
             <tr>
                 <th>전자우편</th>
                 <td>
-                    <input name="join_mailid" id="join_mailid" size="10"
+                    <input name="user_mail" id="user_mail" size="10"
                            class="input_box"/>@<input name="join_maildomain"
                                                       id="join_maildomain" size="20" class="input_box" readonly/>
                     <!--readonly는 단지 쓰기,수정이 불가능하고 읽기만 가능하다 //-->

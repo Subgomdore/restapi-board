@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -42,11 +43,10 @@ public class UserController {
     }
 
     @PostMapping("/idCheck")
-    public int idCheck(@RequestBody User user) throws Exception {
-        User idCheck = userService.idCheck(user);
-        int result = -44;
-        if(idCheck.getUser_id().equals(user.getUser_id())){
-            result = 0;
+    public int idCheck(@RequestBody User user) {
+        int result =0;
+        if(userService.idCheck(user)){
+            result =1;
             return result;
         }
         return result;
