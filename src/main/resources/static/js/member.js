@@ -266,21 +266,3 @@ function edit_check(){
 		 return false;
 	 }	 	 
 }
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
- 
- 
- 
- 

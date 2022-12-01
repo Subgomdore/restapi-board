@@ -28,7 +28,6 @@
                     } else if (cnt == 1 && user_id.length > 0){ // cnt가 1일 경우 -> 이미 존재하는 아이디
                         $('.id_already').css("display", "inline-block");
                         $('.id_ok').css("display", "none");
-                        console.log('중복된아이디')
                     } else {
                         $('.id_ok').css("display", "none");
                         $('.id_already').css("display","none");
@@ -74,13 +73,16 @@
     </script>
     <script>
         function userJoin(){
-            console.log('작동확인');
+            console.log('회원가입 버튼 작동확인');
             const user_id = $('#user_id').val();
             const user_pass = $('#user_pass').val();
             const user_email = $('#user_mail').val() + '@' + $('#user_mail2').val();
 
-            console.log(user_id);
-            console.log(user_email);
+            if (document.getElementById('already').innerText == 'already') {
+                alert("사용중인 아이디 입니다");
+                $("#user_id").val("").focus();
+                return false;
+            }
 
             $.ajax({
                 url: 'user/save',
@@ -125,8 +127,8 @@
                 <td>
                     <input name="user_id" id="user_id" placeholder="ID"
                            required oninput="id_check()" size="14" class="input_box"/>
-                    <span class="id_already"> already </span>
-                    <span class="id_ok"> ok </span>
+                    <span id="already" class="id_already"> already </span>
+                    <span id="ok" class="id_ok"> ok </span>
                 </td>
             </tr>
             <tr>
