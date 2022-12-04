@@ -1,18 +1,19 @@
 package com.project.restapiboard.entity;
 
+
 import com.sun.istack.NotNull;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-@Entity
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-
-
+@Entity
 public class User {
 
     @Id
@@ -24,7 +25,11 @@ public class User {
     @NotNull
     private String user_email;
 
-    @OneToMany(mappedBy = "user")
-    private List<Board> boardList = new ArrayList<Board>();
+    @Builder
+    public User(String user_id, String user_pass, String user_email) {
+        this.user_id = user_id;
+        this.user_pass = user_pass;
+        this.user_email = user_email;
+    }
 
 }

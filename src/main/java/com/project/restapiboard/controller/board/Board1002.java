@@ -1,36 +1,30 @@
 package com.project.restapiboard.controller.board;
 
-import com.project.restapiboard.entity.BoardType;
-import com.project.restapiboard.service.BoardService;
-import com.project.restapiboard.service.BoardTypeService;
+import com.project.restapiboard.dto.request.RequestBoardDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 // 황인성
+
 @RestController
-@RequestMapping("/board")
+@RequestMapping
 @Slf4j
 public class Board1002 {
 
-    @Autowired
-    private BoardService boardService;
-
-    @Autowired
-    private BoardTypeService boardTypeService;
-
-    @GetMapping("/list")
-    public List<BoardType> BoardTypeList() {
-        log.info("/board/list호출");
-        return boardTypeService.BoardTypeListfindAll();
+    @GetMapping("/1002")
+    public void test(@RequestBody RequestBoardDto requestBoardDto){
+        log.info("========== /1002/list ==========");
+        System.out.println("/1002/도착");
     }
 
-    @PostMapping("/1002/add")
-    public void addBoard(@RequestBody BoardType boardType) {
-        boardType = boardTypeService.addBoard(boardType);
-      log.info(boardType.getBoardtype_name());
-    }
+//
+//    @PostMapping("/1002/add")
+//    public void addBoard(@RequestBody BoardTypeDTO boardTypeDTO) {
+//        boardTypeDTO = boardTypeService.boardAdd(boardTypeDTO);
+//        log.info(boardTypeDTO.getBoard_name());
+//    }
 
 }

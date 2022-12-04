@@ -1,10 +1,14 @@
 package com.project.restapiboard.entity;
 
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @SequenceGenerator(
         name = "BOARDTYPE_SEQ_GENERATOR"
@@ -13,7 +17,6 @@ import javax.persistence.*;
         , allocationSize = 1
 )
 
-@Table(name = "boardtype")
 public class BoardType {
 
     @Id
@@ -22,6 +25,13 @@ public class BoardType {
     @Column(name = "boardtype_no")
     private Long boardtype_no;
 
+    @Column(name = "boardtype_name")
     private String boardtype_name;
+
+    @Builder
+    public BoardType(String boardtype_name) {
+        this.boardtype_name = boardtype_name;
+    }
+
 
 }

@@ -37,7 +37,7 @@
                     data: data,
                     success: function (response) {
                         if (response == 1) {
-                            location.href = 'board'
+                            location.href = 'board'/* PageController - board 요청*/
                         } else {
                             alert('비번틀림');
                         }
