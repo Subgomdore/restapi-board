@@ -23,6 +23,15 @@
                 boardtypeNo:boardtypeNo
             }),
             success: function (data) {
+                str = '<TR>';
+                $.each(data, function (i) {
+                    console.log(i)
+                    str += '<TD id="bno'+i+'"> ' + data[i].boardNo + '</TD>' +
+                        '<TD id="bname'+i+'"> <a href="board/'+ data[i].boardNo +'">'+data[i].boardSubject+'</a></TD>';
+                    str += '</TR>';
+                });
+                $('.table_body').append(str);
+
             },
             error: function () {
                 console.log('에러');
@@ -42,12 +51,13 @@ ${boardtypeNo}의 게시판 <br>
     <table id="bbslist_t">
         <tr align="center" valign="middle" bordercolor="#333333">
             <td style="font-family: Tahoma; font-size: 11pt;" width="8%" height="26">
-                <div align="center">boardTypeNo</div>
+                <div align="center">boardNo</div>
             </td>
             <td style="font-family: Tahoma; font-size: 11pt;" width="47%">
-                <div align="center">boardTypeName</div>
+                <div align="center">boardSubject</div>
             </td>
         </tr>
+        <%--여기에 AJAX 리턴값을 추가해서 반환한다.--%>
         <tbody class="table_body">
 
         </tbody>

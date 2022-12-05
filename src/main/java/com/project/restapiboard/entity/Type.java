@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @SequenceGenerator(
-        name = "BOARDTYPE_SEQ_GENERATOR"
+        name = "TYPE_SEQ_GENERATOR"
         , sequenceName = "TYPE_SEQ"
         , initialValue = 1001
         , allocationSize = 1

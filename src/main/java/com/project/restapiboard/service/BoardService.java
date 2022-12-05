@@ -26,7 +26,7 @@ public class BoardService {
     //    즉, findBy + (fk필드_첫문자는대문자) + "_" + "fk도메인의 ID 필드" 로 생성하면 된다 !
     public List<ResponseBoardDto> getBoardList(long typeNo) {
         log.info("========== service: getBoardList ==========");
-        List<Board>  boards = typeRepository.findByTypeNo_TypeNo(typeNo);
+        List<Board>  boards = boardRepository.findByType_TypeNo(typeNo);
 
         List<ResponseBoardDto> responseBoardDtoList = new ArrayList<>();
         for(Board board : boards){

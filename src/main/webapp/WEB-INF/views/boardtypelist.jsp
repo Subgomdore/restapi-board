@@ -19,8 +19,6 @@
             url: '/board/list',
             type: 'GET',
             success: function (data) {
-                console.log("통신성공");
-                console.log(data);
                 str = '<TR>';
                 $.each(data, function (i) {
                     console.log(i)

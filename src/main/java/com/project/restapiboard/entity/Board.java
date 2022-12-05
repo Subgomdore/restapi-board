@@ -55,11 +55,11 @@ public class Board {
     private int reLevel;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid", foreignKey = @ForeignKey(name = "FK_USER_ID"))  // user 테이블의 PK를 조인.
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_USER_ID"))  // user 테이블의 PK를 조인.
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "typeno", foreignKey =  @ForeignKey(name = "FK_BOARDTYPE_NO"))
+    @JoinColumn(name = "type_no", foreignKey =  @ForeignKey(name = "FK_BOARDTYPE_NO"))
     private Type type;
 
     @Builder

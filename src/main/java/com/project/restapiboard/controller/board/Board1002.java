@@ -24,7 +24,9 @@ public class Board1002 {
     public List<ResponseBoardDto> getBoardList (@RequestBody @PathVariable long typeNo) {
         log.info("========== /1002/list ==========");
         System.out.println(typeNo);
-        return boardService.getBoardList(typeNo);
+        List<ResponseBoardDto> boardList = boardService.getBoardList(typeNo);
+        log.info("===================================== 리턴되는거니????????????????????????????");
+        return boardList;
     }
 
 
