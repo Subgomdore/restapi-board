@@ -24,8 +24,8 @@
                 str = '<TR>';
                 $.each(data, function (i) {
                     console.log(i)
-                    str += '<TD id="bno'+i+'"> ' + data[i].boardtype_no + '</TD>' +
-                        '<TD id="bname'+i+'"> <a href="board/'+ data[i].boardtype_no +'">'+data[i].boardtype_name+'</a></TD>';
+                    str += '<TD id="bno'+i+'"> ' + data[i].boardtypeNo + '</TD>' +
+                        '<TD id="bname'+i+'"> <a href="board/'+ data[i].boardtypeNo +'">'+data[i].boardtypeName+'</a></TD>';
                     str += '</TR>';
                 });
                 $('.table_body').append(str);
@@ -41,8 +41,8 @@
 <script>
 
     function Type_insert(){
-        const boardtype_name = $('#board_type').val();
-        console.log(boardtype_name);
+        const typeName = $('#typeName').val();
+        console.log(typeName);
 
         $.ajax({
             url: 'board/boardtype-add', /*BoardType Controller 요청*/
@@ -50,7 +50,7 @@
             data_type: "json",
             contentType: 'application/json',
             data:JSON.stringify({
-                boardtype_name:boardtype_name
+                typeName:typeName
             }),
             success: function (data) {
                 location.href='board'
@@ -65,17 +65,17 @@
 </script>
 <body>
 접속중인아이디: ${sessionid} <br>
-게시판종류 추가하기: <input id="board_type" type="text"/> <input type="button" onclick="Type_insert()" value="추가"/>
+게시판종류 추가하기: <input id="typeName" type="text"/> <input type="button" onclick="Type_insert()" value="추가"/>
 
 <div id="bbslist_wrap">
     <h2 class="bbslist_title">게시판 목록</h2>
     <table id="bbslist_t">
         <tr align="center" valign="middle" bordercolor="#333333">
             <td style="font-family: Tahoma; font-size: 11pt;" width="8%" height="26">
-                <div align="center">boardType_no</div>
+                <div align="center">boardTypeNo</div>
             </td>
             <td style="font-family: Tahoma; font-size: 11pt;" width="47%">
-                <div align="center">boardType_name</div>
+                <div align="center">boardTypeName</div>
             </td>
         </tr>
         <tbody class="table_body">

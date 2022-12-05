@@ -1,30 +1,37 @@
 package com.project.restapiboard.controller.board;
 
 import com.project.restapiboard.dto.request.RequestBoardDto;
+import com.project.restapiboard.dto.response.ResponseBoardDto;
+import com.project.restapiboard.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // 황인성
 
 @RestController
-@RequestMapping
+@RequestMapping("/board")
 @Slf4j
 public class Board1002 {
 
-    @GetMapping("/1002")
-    public void test(@RequestBody RequestBoardDto requestBoardDto){
+    @Autowired
+    BoardService boardService;
+
+    @PostMapping("/{typeNo}/list")
+    public List<ResponseBoardDto> getBoardList (@RequestBody @PathVariable long typeNo) {
         log.info("========== /1002/list ==========");
-        System.out.println("/1002/도착");
+        System.out.println(typeNo);
+        return boardService.getBoardList(typeNo);
     }
 
-//
-//    @PostMapping("/1002/add")
-//    public void addBoard(@RequestBody BoardTypeDTO boardTypeDTO) {
-//        boardTypeDTO = boardTypeService.boardAdd(boardTypeDTO);
-//        log.info(boardTypeDTO.getBoard_name());
+
+//    @PostMapping("/{boardtype_no}/write-add")
+//    public void boardAdd(@RequestBody RequestBoardDto requestBoardDto) {
+//        boardService.boardAdd(requestBoardDto);
 //    }
+
 
 }

@@ -11,14 +11,17 @@
 
 <script>
     $(document).ready(function () {
-        console.log('boardlist/{boardtype_no}의 function 실행완료');
-        const boardtype_no = '${boardtype_no}';
-        console.log(boardtype_no);
+        console.log('boardlist/{boardtypeNo}의 function 실행완료');
+        const boardtypeNo = '${boardtypeNo}';
+        console.log(boardtypeNo);
         $.ajax({
-            url: '/1002',
-            type: 'GET',
+            url: '/board/1002/list',
+            type: 'POST',
             data_type: "json",
             contentType: 'application/json',
+            data:JSON.stringify({
+                boardtypeNo:boardtypeNo
+            }),
             success: function (data) {
             },
             error: function () {
@@ -30,7 +33,7 @@
 
 
 <body>
-${boardtype_no}의 게시판 <br>
+${boardtypeNo}의 게시판 <br>
 접속중인아이디: ${sessionid} <br>
 
 
@@ -39,10 +42,10 @@ ${boardtype_no}의 게시판 <br>
     <table id="bbslist_t">
         <tr align="center" valign="middle" bordercolor="#333333">
             <td style="font-family: Tahoma; font-size: 11pt;" width="8%" height="26">
-                <div align="center">boardType_no</div>
+                <div align="center">boardTypeNo</div>
             </td>
             <td style="font-family: Tahoma; font-size: 11pt;" width="47%">
-                <div align="center">boardType_name</div>
+                <div align="center">boardTypeName</div>
             </td>
         </tr>
         <tbody class="table_body">
@@ -51,7 +54,7 @@ ${boardtype_no}의 게시판 <br>
     </table>
 
     <div id="bbslist_w">
-        <input type="button" value="글쓰기" class="input_button" onclick="location.href=${boardtype_no} + '/contentwrite'">
+        <input type="button" value="글쓰기" class="input_button" onclick="location.href=${boardtypeNo} + '/boardwrite'">
     </div>
 </div>
 </body>

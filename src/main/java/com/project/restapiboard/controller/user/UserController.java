@@ -38,12 +38,12 @@ public class UserController {
         int result = -1;
         ResponseUserDto loginUser = userService.loginCheck(requestUserDto);
 
-        if (requestUserDto.getUser_pass().equals(loginUser.getUser_pass())) { // tru
+        if (requestUserDto.getUserPass().equals(loginUser.getUserPass())) { // tru
             result = 1;
 
             /*추후 인터셉터 변경 및 쿠키값으로 수정예정*/
             HttpSession session = request.getSession();
-            session.setAttribute("sessionid", requestUserDto.getUser_id());
+            session.setAttribute("sessionid", requestUserDto.getUserId());
 
 
             return result;

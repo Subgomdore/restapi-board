@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResponseUserDto {
 
-    private String user_id;
-    private String user_pass;
-    private String user_email;
+    private String userId;
+    private String userPass;
+    private String userEmail;
 
     public ResponseUserDto(User user) {
-       this.user_id = user.getUser_id();
-       this.user_pass = user.getUser_pass();
-       this.user_email = user.getUser_email();
+       this.userId = user.getUserId();
+       this.userPass = user.getUserPass();
+       this.userEmail = user.getUserEmail();
     }
 }

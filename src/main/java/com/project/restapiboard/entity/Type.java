@@ -6,31 +6,36 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @SequenceGenerator(
         name = "BOARDTYPE_SEQ_GENERATOR"
-        , sequenceName = "BOARDTYPE_SEQ"
+        , sequenceName = "TYPE_SEQ"
         , initialValue = 1001
         , allocationSize = 1
 )
 
-public class BoardType {
+public class Type {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE
-            , generator = "BOARDTYPE_SEQ_GENERATOR")
-    @Column(name = "boardtype_no")
-    private Long boardtype_no;
+            , generator = "TYPE_SEQ_GENERATOR")
+    @Column(name = "type_no")
+    private Long typeNo;
 
-    @Column(name = "boardtype_name")
-    private String boardtype_name;
+    @Column(name = "type_name")
+    private String typeName;
+
+    @OneToMany(mappedBy = "type")
+    private List<Board> board = new ArrayList<>();
 
     @Builder
-    public BoardType(String boardtype_name) {
-        this.boardtype_name = boardtype_name;
+    public Type(String typeName) {
+        this.typeName = typeName;
     }
 
 

@@ -12,20 +12,20 @@
     <!-- 아이디 중복검사 Ajax -->
     <script>
         function id_check() {
-            const user_id = $('#user_id').val(); //id값이 "id"인 입력란의 값을 저장
+            const userId = $('#userId').val(); //id값이 "id"인 입력란의 값을 저장
             $.ajax({
                 url: 'user/idCheck', //Controller에서 요청 받을 주소
                 type: 'post', //POST 방식으로 전달
                 data_type: "json",
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    user_id: user_id
+                    userId: userId
                 }),
                 success: function (cnt) { //컨트롤러에서 넘어온 cnt값을 받는다
-                    if (cnt == 0 && user_id.length > 0) { //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
+                    if (cnt == 0 && userId.length > 0) { //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
                         $('.id_ok').css("display", "inline-block");
                         $('.id_already').css("display", "none");
-                    } else if (cnt == 1 && user_id.length > 0) { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                    } else if (cnt == 1 && userId.length > 0) { // cnt가 1일 경우 -> 이미 존재하는 아이디
                         $('.id_already').css("display", "inline-block");
                         $('.id_ok').css("display", "none");
                     } else {
@@ -62,28 +62,28 @@
     </script>
     <script>
         function userJoin() {
-            const user_id = $('#user_id').val();
-            const user_pass = $('#user_pass').val();
-            const user_email = $('#user_mail').val() + '@' + $('#user_mail2').val();
+            const userId = $('#userId').val();
+            const userPass = $('#userPass').val();
+            const userEmail = $('#userEmail').val() + '@' + $('#userEmail2').val();
 
             if (document.getElementById('already').innerText == '사용중') {
                 alert("사용중인 아이디 입니다");
-                $("#user_id").val("").focus();
+                $("#userId").val("").focus();
                 return false;
             }
-            if ($.trim($("#user_pass").val()) == "") {
+            if ($.trim($("#userPass").val()) == "") {
                 alert("비밀번호를 입력하세요!");
-                $("#user_pass").val("").focus();
+                $("#userPass").val("").focus();
                 return false;
             }
-            if ($.trim($("#user_pass2").val()) == "") {
+            if ($.trim($("#userPass2").val()) == "") {
                 alert("확인 비밀번호를 입력하세요!");
-                $("#user_pass2").val("").focus();
+                $("#userPass2").val("").focus();
                 return false;
             }
-            if ($.trim($("#user_pass").val()) != $.trim($("#user_pass2").val())) {
+            if ($.trim($("#userPass").val()) != $.trim($("#userPass2").val())) {
                 alert("입력한 비밀번호가 일치하지 않습니다.");
-                $("#user_pass2").val("").focus();
+                $("#userPass2").val("").focus();
                 return false;
             }
 
@@ -94,9 +94,9 @@
                 data_type: "json",
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    user_id: user_id,
-                    user_pass: user_pass,
-                    user_email: user_email
+                    userId: userId,
+                    userPass: userPass,
+                    userEmail: userEmail
                 }),
                 success: function (data) {
                     alert('회원가입 성공');
@@ -130,7 +130,7 @@
             <tr>
                 <th>회원아이디</th>
                 <td>
-                    <input name="user_id" id="user_id" placeholder="ID"
+                    <input name="userId" id="userId" placeholder="ID"
                            required oninput="id_check()" size="14" class="input_box"/>
                     <span id="already" class="id_already"> 사용중 </span>
                     <span id="ok" class="id_ok"> 사용가능 </span>
@@ -139,7 +139,7 @@
             <tr>
                 <th>회원비번</th>
                 <td>
-                    <input type="password" name="user_pass" id="user_pass" size="14"
+                    <input type="password" name="userPass" id="userPass" size="14"
                            class="input_box"/>
                 </td>
             </tr>
@@ -147,7 +147,7 @@
             <tr>
                 <th>회원비번확인</th>
                 <td>
-                    <input type="password" name="user_pass2" id="user_pass2" size="14"
+                    <input type="password" name="userPass2" id="userPass2" size="14"
                            class="input_box"/>
                 </td>
             </tr>
@@ -155,8 +155,8 @@
             <tr>
                 <th>전자우편</th>
                 <td>
-                    <input name="user_mail" id="user_mail" size="10" class="input_box"/>@
-                    <input name="user_mail2" id="user_mail2" size="20" class="input_box" readonly/>
+                    <input name="userEmail" id="userEmail" size="10" class="input_box"/>@
+                    <input name="userEmail2" id="userEmail2" size="20" class="input_box" readonly/>
                     <select name="mail_list" onchange="domain_list()">
                         <option value="">=이메일선택=</option>
                         <option value="daum.net">daum.net</option>

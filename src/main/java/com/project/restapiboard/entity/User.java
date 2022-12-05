@@ -7,9 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,18 +18,24 @@ public class User {
 
     @Id
     @Column(name = "user_id")
-    private String user_id;
+    private String userId;
 
     @NotNull
-    private String user_pass;
+    @Column(name = "user_pass")
+    private String userPass;
+
     @NotNull
-    private String user_email;
+    @Column(name = "user_email")
+    private String userEmail;
+
+    @OneToMany(mappedBy = "user")
+    private List<Board> boards = new ArrayList<>();
 
     @Builder
-    public User(String user_id, String user_pass, String user_email) {
-        this.user_id = user_id;
-        this.user_pass = user_pass;
-        this.user_email = user_email;
+    public User(String userId, String userPass, String userEmail) {
+        this.userId = userId;
+        this.userPass = userPass;
+        this.userEmail = userEmail;
     }
 
 }

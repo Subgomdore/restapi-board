@@ -43,14 +43,14 @@ public class UserService {
 
     /*아이디 중복검사*/
     public boolean idCheck(RequestUserDto requestUserDto) {
-        Optional<User> idCheck = userRepository.findById(requestUserDto.getUser_id());
+        Optional<User> idCheck = userRepository.findById(requestUserDto.getUserId());
         return idCheck.isPresent(); // boolean형이라 dto로 치환하지않았음. 치환해서 체크해야하는건지 잘모름..(boolean이라 상관없을거같다는판단)
     }
 
     /*비밀번호 체크*/
     public ResponseUserDto loginCheck(RequestUserDto requestUserDto) {
         User user = requestUserDto.toEntity();                                      //DTO -> Entity build
-        Optional<User> loginUser = userRepository.findById(user.getUser_id());
+        Optional<User> loginUser = userRepository.findById(user.getUserId());
         ResponseUserDto responseUserDto = new ResponseUserDto(loginUser.get());     // Optional longinUser를 다시 DTO로 치환.
         return responseUserDto;
     }

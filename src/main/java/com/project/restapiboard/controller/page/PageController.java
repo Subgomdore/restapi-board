@@ -31,9 +31,16 @@ public class PageController {
         return "boardtypelist";
     }
 
-    @RequestMapping("/board/{boardtype_no}")
-    public String boardList(@PathVariable String boardtype_no, Model model) {
-        model.addAttribute("boardtype_no", boardtype_no);
+
+    @RequestMapping("/board/{boardtypeNo}")
+    public String boardList(@PathVariable String boardtypeNo, Model model) {
+        model.addAttribute("boardtypeNo", boardtypeNo);
         return "boardlist";
+    }
+
+    @RequestMapping("/board/{boardtypeNo}/boardwrite")
+    public String boardWrite(@PathVariable String boardtypeNo, Model model){
+        model.addAttribute("boardtypeNo", boardtypeNo);
+        return "boardwrite";
     }
 }
