@@ -1,63 +1,41 @@
 package com.project.restapiboard.configuration;
 
-import com.project.restapiboard.jwt.JwtAccessDeniedHandler;
-import com.project.restapiboard.jwt.JwtAuthenticationEntryPoint;
-import com.project.restapiboard.jwt.JwtSecurityConfig;
-import com.project.restapiboard.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@Configuration
+@EnableWebSecurity  // 스프링 스큐리티 필터가 스프링 필터체인에 등록
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // secured 어노테이션 활성화, preAuthorize, postAuthorize 어노테이션 활성
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final TokenProvider tokenProvider;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-
-    public SecurityConfig(
-            TokenProvider tokenProvider,
-            JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
-            JwtAccessDeniedHandler jwtAccessDeniedHandler
-    ) {
-        this.tokenProvider = tokenProvider;
-        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
-        this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
-    }
-
+    //해당 메서드의 리턴되는 오브젝트를 IoC로 등록 해준다.
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder encoderPwd(){
         return new BCryptPasswordEncoder();
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http
-                .csrf().disable()
-
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
-
+        http.csrf().disable();  // csrf 비활성화
+        http.authorizeRequests()
+                .antMatchers("/user/**").authenticated()    //인증이 필요한 url
+                .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .anyRequest().permitAll() // 다른 주소는 모두 접속가능
                 .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
+                .formLogin()
+                .loginPage("/loginForm")
+                .usernameParameter("username")
+                .passwordParameter("userPass")
+                .loginProcessingUrl("/login") // /login 주소가 호출되면 시큐리티가 낚아채서 대신 로그인을 진행해줌.
+                .defaultSuccessUrl("/") // login이 성공적으로 진행되면 메인페이지로 이동
                 .and()
-                .authorizeRequests()
-                .antMatchers("/main/login").permitAll()
-                .antMatchers("/main/userJoin").permitAll()
-                .antMatchers("/user/IdCheck").permitAll()
-                .antMatchers("/user/save").permitAll()
-                .anyRequest().authenticated()
-
-                .and()
-                .apply(new JwtSecurityConfig(tokenProvider));
+                .oauth2Login()
+                .loginPage("/loginForm"); // 구글 로그인이 완료 된 후 처리가 필요함.
     }
-
 }

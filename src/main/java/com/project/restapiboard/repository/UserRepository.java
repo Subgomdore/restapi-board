@@ -2,16 +2,12 @@ package com.project.restapiboard.repository;
 
 
 import com.project.restapiboard.entity.User;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
-@Repository
+// @Repository 어노테이션이 없어도 IoC(Inversion of Control) 작동 가능 - JpaRepository 를 상속했기 때문에 가능
 public interface UserRepository extends JpaRepository<User, String> {
 
-    //@EntityGraph = 쿼리가 수행 될때, lazy 조회가 아니고, Eager 조회로 authorities 정보를 같이 가져옴
-    @EntityGraph(attributePaths = "authorities")
-    Optional<User> findOneWithAuthoritiesByUser_id(String user_id);
+    // findBy 규칙 -> User_id 문법
+    // select * from user where user_id = 1?
+    User findByUserId(String username); // JPA
 }

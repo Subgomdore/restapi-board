@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -27,8 +27,8 @@ public class UserController {
     }
 
     @GetMapping("/IdCheck")
-    public boolean idCheck(@RequestParam("user_id") String user_id){
-        boolean cnt = userService.idCheck(user_id);
+    public boolean idCheck(@RequestParam("userId") String userId){
+        boolean cnt = userService.idCheck(userId);
         return cnt;
     }
 
