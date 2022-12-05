@@ -1,5 +1,7 @@
 package com.project.restapiboard.configuration;
 
+import com.project.restapiboard.configuration.oauth.PrincipalOauth2UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity  // 스프링 스큐리티 필터가 스프링 필터체인에 등록
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // secured 어노테이션 활성화, preAuthorize, postAuthorize 어노테이션 활성
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserService;
 
     //해당 메서드의 리턴되는 오브젝트를 IoC로 등록 해준다.
     @Bean
@@ -36,6 +41,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/") // login이 성공적으로 진행되면 메인페이지로 이동
                 .and()
                 .oauth2Login()
-                .loginPage("/loginForm"); // 구글 로그인이 완료 된 후 처리가 필요함.
+                .loginPage("/loginForm")
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
+        // 구글 로그인이 완료 된 후 처리가 필요함. Tip. 코드를 받는것이 아님 > (엑세스토큰, 사용자 정보 프로필 O)
+        // 1.코드 받기(인증), 2.엑세스토큰(권한) 3. 사용자 프로필 정보가져오기
+        // 4-1. 정보를 토대로 회원가입진행 시키기도 함
+        // 4-2. (이메일, 전화번호, 이름, 아이디) 쇼핑몰 -> (집주소) -> (vip) 등 추가로 필요한것이 있다면 추가정보 등록란
     }
 }
