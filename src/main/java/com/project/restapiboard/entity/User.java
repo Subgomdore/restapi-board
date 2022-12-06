@@ -24,5 +24,6 @@ public class User {
     private String user_id;
     private String user_pass;
     private String user_email;
+    private String user_content;
 
 }

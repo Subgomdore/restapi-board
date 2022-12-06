@@ -15,7 +15,7 @@
     <name>restapi-board</name>
     <description>restapi-board</description>
     <properties>
-        <java.version>8</java.version>
+        <java.version>11 </java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -34,10 +34,17 @@
             <optional>true</optional>
         </dependency>
         <!-- 암호화 (토큰) -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
+        <!-- logging -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
