@@ -4,6 +4,7 @@ import com.project.restapiboard.dto.request.Req;
 import com.project.restapiboard.dto.response.ResBoardeListDto;
 import com.project.restapiboard.dto.response.ResponseBoardDto;
 import com.project.restapiboard.entity.Board;
+import com.project.restapiboard.entity.User;
 import com.project.restapiboard.repository.BoardRepository;
 import com.project.restapiboard.repository.TypeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -58,9 +59,11 @@ public class BoardService {
         return boardDto;
     }
 
-    public void addContent(Req reqAddContent) {
-        Board board = reqAddContent.toEntity();
-        boardRepository.save(board);
+    public void addContent(Req req) {
+        Board board = req.BoardtoEntity();
+        User user = req.UserIdtoEntity();
+        log.info(user.getUserId());
+//        boardRepository.save(board);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.project.restapiboard.dto.request;
 
 import com.project.restapiboard.entity.Board;
+import com.project.restapiboard.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class Req {
     private String userId;
     private long typeNo;
 
-    public Board toEntity(){
+    public Board BoardtoEntity(){
         return Board.builder()
                 .boardSubject(boardSubject)
                 .boardContent(boardContent)
@@ -31,6 +32,12 @@ public class Req {
                 .ref(ref)
                 .reStep(reStep)
                 .reLevel(reLevel)
+                .build();
+    }
+
+    public User UserIdtoEntity(){
+        return User.builder()
+                .userId(userId)
                 .build();
     }
 
