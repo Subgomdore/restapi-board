@@ -31,16 +31,26 @@ public class PageController {
         return "boardtypelist";
     }
 
-
-    @RequestMapping("/board/{boardtypeNo}")
-    public String boardList(@PathVariable String boardtypeNo, Model model) {
-        model.addAttribute("boardtypeNo", boardtypeNo);
+    /*게시판타입 목록(일반, 거래, 질문게시판 등등) */
+    @RequestMapping("/board/{typeNo}")
+    public String boardList(@PathVariable long typeNo, Model model) {
+        model.addAttribute("typeNo", typeNo);
         return "boardlist";
     }
 
-    @RequestMapping("/board/{boardtypeNo}/boardwrite")
-    public String boardWrite(@PathVariable String boardtypeNo, Model model){
-        model.addAttribute("boardtypeNo", boardtypeNo);
+    /*특정게시판의 글쓰기 페이지이동*/
+    @RequestMapping("/board/{typeNo}/boardwrite")
+    public String boardWrite(@PathVariable long typeNo, Model model) {
+        System.out.println(typeNo);
+        model.addAttribute("typeNo", typeNo);
         return "boardwrite";
+    }
+
+    /*특정게시판의 상세내용보기 페이지이동*/
+    @RequestMapping("/board/{typeNo}/{boardNo}")
+    public String boardContent(@PathVariable long typeNo, Model model) {
+        System.out.println(typeNo);
+        model.addAttribute("typeNo",typeNo);
+        return "boardcontent";
     }
 }

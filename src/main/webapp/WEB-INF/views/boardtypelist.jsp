@@ -19,11 +19,11 @@
             url: '/board/list',
             type: 'GET',
             success: function (data) {
-                str = '<TR>';
+                str = '<TR align="center">';
                 $.each(data, function (i) {
                     console.log(i)
-                    str += '<TD id="bno'+i+'"> ' + data[i].boardtypeNo + '</TD>' +
-                        '<TD id="bname'+i+'"> <a href="board/'+ data[i].boardtypeNo +'">'+data[i].boardtypeName+'</a></TD>';
+                    str += '<TD align="center" id="bno'+i+'"> ' + data[i].typeNo + '</TD>' +
+                        '<TD align="center" id="bname'+i+'"> <a href="board/'+ data[i].typeNo +'">'+data[i].typeName+'</a></TD>';
                     str += '</TR>';
                 });
                 $('.table_body').append(str);
@@ -67,13 +67,13 @@
 
 <div id="bbslist_wrap">
     <h2 class="bbslist_title">게시판 목록</h2>
-    <table id="bbslist_t">
+    <table id="bbslist_t" border="1">
         <tr align="center" valign="middle" bordercolor="#333333">
             <td style="font-family: Tahoma; font-size: 11pt;" width="8%" height="26">
-                <div align="center">boardTypeNo</div>
+                <div align="center">typeNo</div>
             </td>
-            <td style="font-family: Tahoma; font-size: 11pt;" width="47%">
-                <div align="center">boardTypeName</div>
+            <td style="font-family: Tahoma; font-size: 11pt;" width="40%">
+                <div align="center">typeName</div>
             </td>
         </tr>
         <tbody class="table_body">

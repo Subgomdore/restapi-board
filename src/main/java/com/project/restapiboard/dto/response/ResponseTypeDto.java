@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ResponseTypeDto {
-    private long boardtypeNo;
-    private String boardtypeName;
+    private long typeNo;
+    private String typeName;
 
     public ResponseTypeDto(Type type) {
-        this.boardtypeNo = type.getTypeNo();
-        this.boardtypeName = type.getTypeName();
+        this.typeNo = type.getTypeNo();
+        this.typeName = type.getTypeName();
     }
 }
 

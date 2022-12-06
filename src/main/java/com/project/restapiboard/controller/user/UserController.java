@@ -26,6 +26,17 @@ public class UserController {
         return userService.getUserList();
     }
 
+    /*ID중복체크 */
+    @PostMapping("/idCheck")
+    public int idCheck(@RequestBody RequestUserDto requestUserDto) {
+        int result = 0;
+        if (userService.idCheck(requestUserDto)) {
+            result = 1;
+            return result;
+        }
+        return result;
+    }
+
     /*회원가입 -> 유저등록*/
     @PostMapping("/save")
     public void saveUser(@RequestBody RequestUserDto requestUserDto) {
@@ -51,14 +62,5 @@ public class UserController {
         return result;
     }
 
-    @PostMapping("/idCheck")
-    public int idCheck(@RequestBody RequestUserDto requestUserDto) {
-        int result = 0;
-        if (userService.idCheck(requestUserDto)) {
-            result = 1;
-            return result;
-        }
-        return result;
-    }
 
 }

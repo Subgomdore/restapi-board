@@ -1,6 +1,8 @@
 package com.project.restapiboard.dto.response;
 
 import com.project.restapiboard.entity.Board;
+import com.project.restapiboard.entity.Type;
+import com.project.restapiboard.entity.User;
 
 public class ResponseBoardDto {
     private long boardNo;
@@ -12,6 +14,8 @@ public class ResponseBoardDto {
     private int ref;
     private int reStep;
     private int reLevel;
+    private User user;
+    private Type type;
 
     public ResponseBoardDto(Board board) {
         this.boardNo = board.getBoardNo();
@@ -23,5 +27,7 @@ public class ResponseBoardDto {
         this.ref = board.getRef();
         this.reStep = board.getReStep();
         this.reLevel = board.getReLevel();
+        this.user = board.getUser();
+        this.type = board.getType();
     }
 }

@@ -1,8 +1,9 @@
 package com.project.restapiboard.dto.request;
 
 import com.project.restapiboard.entity.Board;
+import com.project.restapiboard.entity.Type;
+import com.project.restapiboard.entity.User;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RequestBoardDto {
 
-    private Long boardNo;
     private String boardSubject;
     private String boardContent;
     private String boardUpload;
@@ -19,17 +19,7 @@ public class RequestBoardDto {
     private int ref;
     private int reStep;
     private int reLevel;
+    private User user;
+    private Type type;
 
-    public Board toEntity() {
-        return Board.builder()
-                .boardNo(boardNo)
-                .boardContent(boardContent)
-                .boardUpload(boardUpload)
-                .boardOldfilename(boardOldfilename)
-                .boardNewfilename(boardNewfilename)
-                .ref(ref)
-                .reStep(reStep)
-                .reLevel(reLevel)
-                .build();
-    }
 }

@@ -24,7 +24,7 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE
             , generator = "BOARD_SEQ_GENERATOR")
-    @Column(name="board_no")
+    @Column(name = "board_no")
     private Long boardNo;
 
     @Column(name = "board_subject", nullable = false)
@@ -59,13 +59,14 @@ public class Board {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "type_no", foreignKey =  @ForeignKey(name = "FK_BOARDTYPE_NO"))
+    @JoinColumn(name = "type_no", foreignKey = @ForeignKey(name = "FK_BOARDTYPE_NO"))
     private Type type;
 
+
     @Builder
-    public Board(long boardNo, String boardSubject, String boardContent, String boardUpload, String boardOldfilename, String boardNewfilename,
-                 int ref, int reStep, int reLevel) {
-        this.boardNo = boardNo;
+    public Board(String boardSubject, String boardContent, String boardUpload, String boardOldfilename,
+                 String boardNewfilename, int ref, int reStep, int reLevel) {
+
         this.boardSubject = boardSubject;
         this.boardContent = boardContent;
         this.boardUpload = boardUpload;
@@ -76,6 +77,5 @@ public class Board {
         this.reLevel = reLevel;
 
     }
-
 
 }

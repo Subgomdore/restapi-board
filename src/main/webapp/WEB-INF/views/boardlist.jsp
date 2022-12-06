@@ -12,26 +12,27 @@
 <script>
     $(document).ready(function () {
         console.log('boardlist/{boardtypeNo}의 function 실행완료');
-        const boardtypeNo = '${boardtypeNo}';
-        console.log(boardtypeNo);
+        const typeNo = '${typeNo}';
+        console.log(typeNo);
         $.ajax({
-            url: '/board/1002/list',
+            url: '/board/'+typeNo+'/list',
             type: 'POST',
             data_type: "json",
             contentType: 'application/json',
             data:JSON.stringify({
-                boardtypeNo:boardtypeNo
+                typeNo:typeNo
             }),
             success: function (data) {
-                str = '<TR>';
+                str = '<TR align="center">';
                 $.each(data, function (i) {
                     console.log(i)
-                    str += '<TD id="bno'+i+'"> ' + data[i].boardNo + '</TD>' +
-                        '<TD id="bname'+i+'"> <a href="board/'+ data[i].boardNo +'">'+data[i].boardSubject+'</a></TD>';
+                    str += '<TD align="center" id="bno'+i+'"> ' + data[i].typeNo + '</TD>' +
+                        '<TD align="center" id="bsubject'+i+'"> <a href="${typeNo}/'+ data[i].boardNo +'">'+data[i].boardSubject+'</a></TD>' +
+                        '<TD align="center" id="buserId'+i+'">' + data[i].userId + '</TD>' +
+                    '<input type="hidden" id="bno+'+i+'" value="'+ data[i].boardNo +'">';
                     str += '</TR>';
                 });
                 $('.table_body').append(str);
-
             },
             error: function () {
                 console.log('에러');
@@ -42,19 +43,22 @@
 
 
 <body>
-${boardtypeNo}의 게시판 <br>
+${typeNo}의 게시판 <br>
 접속중인아이디: ${sessionid} <br>
 
 
 <div id="bbslist_wrap">
     <h2 class="bbslist_title">게시글목록</h2>
-    <table id="bbslist_t">
+    <table id="bbslist_t" border="1">
         <tr align="center" valign="middle" bordercolor="#333333">
-            <td style="font-family: Tahoma; font-size: 11pt;" width="8%" height="26">
-                <div align="center">boardNo</div>
+            <td style="font-family: Tahoma; font-size: 11pt;" width="15%" height="26">
+                <div align="center">글번호(페이징값으로 변경예정)</div>
             </td>
-            <td style="font-family: Tahoma; font-size: 11pt;" width="47%">
-                <div align="center">boardSubject</div>
+            <td style="font-family: Tahoma; font-size: 11pt;" width="25%">
+                <div align="center">글제목</div>
+            </td>
+            <td style="font-family: Tahoma; font-size: 11pt;" width="25%">
+                <div align="center">작성자</div>
             </td>
         </tr>
         <%--여기에 AJAX 리턴값을 추가해서 반환한다.--%>
@@ -64,7 +68,7 @@ ${boardtypeNo}의 게시판 <br>
     </table>
 
     <div id="bbslist_w">
-        <input type="button" value="글쓰기" class="input_button" onclick="location.href=${boardtypeNo} + '/boardwrite'">
+        <input type="button" value="글쓰기" class="input_button" onclick="location.href=${typeNo} + '/boardwrite'">
     </div>
 </div>
 </body>
