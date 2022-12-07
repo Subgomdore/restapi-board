@@ -32,13 +32,8 @@ public class BoardService {
         List<Board> boardList = boardRepository.findByType_TypeNo(typeNo);
 
         for (int i = 0; i < boardList.size(); i++) {
-            System.out.println("====== 엔티티상태는 User와 Type객체가 출력이됨 ======");
-            System.out.println("Siez :" + boardList.size());
-            System.out.println("getUserID :" + boardList.get(i).getUser().getUserId());
-            System.out.println("getTypeNo :" + boardList.get(i).getType().getTypeNo());
-            System.out.println("getContent :" + boardList.get(i).getBoardContent());
-            System.out.println("===============================================");
-
+            log.info(Long.toString(boardList.size()));
+            log.info("{}", boardList);
         }
 
         // id랑 typeno를 가진 dto 리스트 생성
@@ -60,8 +55,13 @@ public class BoardService {
     }
 
     public void addContent(Req req) {
-        Board board = req.BoardtoEntity();
-        User user = req.UserIdtoEntity();
+        Board board = req.toEntity();               /** 이렇게되면 board Entity에는 User,Type객체가 존재하지않음 */
+        User user = req.SetUserId(req.getUserId()); // 형식이 맞지않음... 객체를 넣어야되는데 String값임
+
+        /** req에 있는 인자값 UserId, TypeNo를 객체로 가공해줘야하는데.. 방법이.... */
+
+
+//        User user = req.toEntity();
         log.info(user.getUserId());
 //        boardRepository.save(board);
     }
