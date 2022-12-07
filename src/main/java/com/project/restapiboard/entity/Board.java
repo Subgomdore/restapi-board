@@ -65,7 +65,7 @@ public class Board {
 
     @Builder
     public Board(String boardSubject, String boardContent, String boardUpload, String boardOldfilename,
-                 String boardNewfilename, int ref, int reStep, int reLevel) {
+                 String boardNewfilename, int ref, int reStep, int reLevel, User user, Type type) {
 
         this.boardSubject = boardSubject;
         this.boardContent = boardContent;
@@ -75,6 +75,8 @@ public class Board {
         this.ref = ref;
         this.reStep = reStep;
         this.reLevel = reLevel;
+        this.user = user;
+        this.type = type;
 
     }
 

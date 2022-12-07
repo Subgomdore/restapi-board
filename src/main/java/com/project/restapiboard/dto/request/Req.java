@@ -1,6 +1,8 @@
 package com.project.restapiboard.dto.request;
 
 import com.project.restapiboard.entity.Board;
+import com.project.restapiboard.entity.Type;
+import com.project.restapiboard.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,8 @@ public class Req {
     private int reLevel;
     private String userId;
     private long typeNo;
+    private User user;
+    private Type type;
 
     public Board toEntity() {
         return Board.builder()
@@ -31,6 +35,8 @@ public class Req {
                 .ref(ref)
                 .reStep(reStep)
                 .reLevel(reLevel)
+                .user(user)
+                .type(type)
                 .build();
     }
 
