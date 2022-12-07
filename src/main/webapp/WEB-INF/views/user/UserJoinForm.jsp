@@ -22,6 +22,17 @@
             display: none;
             color:red;
         }
+        .nick_ok{
+            display: none;
+            color: blue;
+        }
+        .nick_already {
+            display: none;
+            color: red;
+        }
+        .nick_size{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -30,6 +41,12 @@
     <span class="id_size">아이디의 길이은 2~8글자 입니다.</span>
     <span class="id_ok">사용가능한 아이디 입니다.</span>
     <span class="id_already">사용중인 아이디 입니다.</span>
+</div>
+<div>
+    <label for="nickName">nickName: </label><input type="text" id="nickName" name="nickName" >
+    <span class="nick_size">닉네임의 길이은 50자를 넘어갈수 없습니다.</span>
+    <span class="nick_ok">사용가능한 닉네임 입니다.</span>
+    <span class="nick_already">사용중인 닉네임 입니다.</span>
 </div>
 <div>
     비밀번호 : <input type="password" id="userPass" name="userPass" />
@@ -77,6 +94,35 @@
                 $('.id_size').css("display","inline-block");
             }
         });
+        $('#nickName').on('input',function(){
+
+            const nickName = document.getElementById("nickName").value;
+            console.log(nickName);
+
+            if(nickName.length >= 1 && nickName.length <=50){
+                $.ajax({
+                    url: './users/NickCheck',
+                    type: 'get',
+                    data: {nickName : nickName},
+                    success:function(user) {
+                        if(user){
+                            $('.nick_ok').css("display","none");
+                            $('.nick_already').css("display", "inline-block");
+                        }else{
+                            $('.nick_ok').css("display", "inline-block");
+                            $('.nick_already').css("display","none");
+                        }
+                    },
+                    error:function (){
+                        alert("에러입니다. 관리자에게 문의해주세요.");
+                    }
+                })
+            }else{
+                $('.nick_ok').css("display", "none");
+                $('.nick_already').css("display", "none");
+                $('.nick_size').css("display","inline-block");
+            }
+        });
         $('#userPass').on('input',function(){
 
             const userPass = document.getElementById("userPass").value;
@@ -103,6 +149,11 @@
             if($("#userId").val()===""){
                 alert("ID를 입력하세요.");
                 $("#userId").focus();
+                return false;
+            }
+            if($("#nickName").val()===""){
+                alert("닉네임을 입력하세요.");
+                $("#nickName").focus();
                 return false;
             }
             if($("#userPass").val()===""){
@@ -135,6 +186,7 @@
 
             let data = {
                 userId : $("#userId").val(),
+                nickName: $("#nickName").val(),
                 userPass : $("#userPass").val(),
                 userEmail : $("#userEmail").val()
             }

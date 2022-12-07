@@ -32,5 +32,11 @@ public class UserController {
         return cnt;
     }
 
+    @GetMapping("/NickCheck")
+    public User nickCheck(@RequestParam("nickName") String nickName){
+         User user = userService.nickCheck(nickName);
+        return user;
+    }
+
 
 }

@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable();  // csrf 비활성화
         http.authorizeRequests()
-                .antMatchers("/user/**").authenticated()    //인증이 필요한 url
+                .antMatchers("/board/**").authenticated()    //인증이 필요한 url
                 .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll() // 다른 주소는 모두 접속가능

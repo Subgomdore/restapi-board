@@ -1,14 +1,11 @@
-package com.project.restapiboard.controller.board;
+package com.project.restapiboard.controller.main;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-//황인덕
 @RestController
-@RequestMapping("/board")
-public class Board1003 {
-
-
+@RequestMapping("/main")
+public class MainController {
 
 
 }

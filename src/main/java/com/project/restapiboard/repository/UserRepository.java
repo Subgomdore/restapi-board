@@ -10,4 +10,9 @@ public interface UserRepository extends JpaRepository<User, String> {
     // findBy 규칙 -> User_id 문법
     // select * from user where user_id = 1?
     User findByUserId(String username); // JPA
+
+    User findByNickName(String nickname);
+
+
+
 }

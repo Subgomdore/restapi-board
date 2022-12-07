@@ -41,6 +41,14 @@ public class PageController {
     public String joinForm(){
         return "user/UserJoinForm";
     }
+    @GetMapping("/manager/main")
+    public String managerMain(){
+        return "manager/ManagerMain";
+    }
+    @GetMapping("/boardType/createForm")
+    public String boardTypeCreateForm(){
+        return "manager/BoardCreateForm";
+    }
 
     @Secured("ROLE_ADMIN")  // 간단하게 하나만 설정 하고 싶을때
     @GetMapping("/info")
@@ -77,7 +85,5 @@ public class PageController {
         System.out.println("oauth2User :" +oAuth.getAttributes());
         return "OAuth 세션 정보 확인하기";
     }
-
-
 
 }

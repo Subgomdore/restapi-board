@@ -34,4 +34,8 @@ public class UserService {
         return userRepository.existsById(user_id);
     }
 
+    public User nickCheck(String nickName) {
+        return userRepository.findByNickName(nickName);
+    }
+
 }

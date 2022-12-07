@@ -57,6 +57,8 @@
             <input type="button" value="비번찾기" class="input_button"
                    onclick="pwd_find()" />
             <a href="/oauth2/authorization/google">구글 로그인</a>
+            <a href="/oauth2/authorization/facebook">페이스북 로그인</a>
+            <a href="/oauth2/authorization/naver">네이버 로그인</a>
         </div>
     </form>
 </div>
