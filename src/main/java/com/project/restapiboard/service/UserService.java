@@ -30,37 +30,30 @@ public class UserService {
     }
 
     public User login(User user) {
-        Optional<User> loginUser = userRepository.findById(user.getUser_id());
+        Optional<User> loginUser = userRepository.findById(user.getUser_no());
         return loginUser.get();
     }
     public User insert(User user) {
-        // TODO Auto-generated method stub
-
         return  userRepository.save(user);
     }
 
     public long getCount() {
-        // TODO Auto-generated method stub
         return userRepository.count();
     }
 
     public List<User> getList() {
-        // TODO Auto-generated method stub
         return userRepository.findAll();
     }
 
     public User getContent(int user_no) {
-        // TODO Auto-generated method stub
         return userRepository.findByNo(user_no);
     }
 
     public User update(User user) {
-        // TODO Auto-generated method stub
         return userRepository.save(user);
     }
 
     public void delete(User user) {
-        // TODO Auto-generated method stub
         userRepository.delete(user);
     }
 

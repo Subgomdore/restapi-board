@@ -9,7 +9,8 @@
 <body>
 
 <script>
-    location.href="login";
+    // location.href="login";
+    location.href="boardlist";
 </script>
 
 </body>

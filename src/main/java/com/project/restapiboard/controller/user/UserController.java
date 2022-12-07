@@ -20,7 +20,7 @@ public class UserController {
     public List<User> retrieveAllUsers() {
         return userService.findAll();
     }
-    
+
     @GetMapping("/list")
     public List<User> getMemberList() {
         List<User> list = userService.getMemberList();
@@ -35,12 +35,12 @@ public class UserController {
 
     @PostMapping("/signin")
     public int loginUser(@RequestBody User user) {
-        log.info(user.getUser_pass());
+        log.info(user.getUser_password());
         int result = -1;
         User loginUser = userService.login(user);
-        log.info(loginUser.getUser_pass());
+        log.info(loginUser.getUser_password());
 
-        if(loginUser.getUser_pass().equals(user.getUser_pass())){
+        if(loginUser.getUser_password().equals(user.getUser_password())){
             result = 1;
             return result;
         }
