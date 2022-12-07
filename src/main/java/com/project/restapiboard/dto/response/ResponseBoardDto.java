@@ -3,7 +3,9 @@ package com.project.restapiboard.dto.response;
 import com.project.restapiboard.entity.Board;
 import com.project.restapiboard.entity.Type;
 import com.project.restapiboard.entity.User;
+import lombok.Getter;
 
+@Getter
 public class ResponseBoardDto {
     private long boardNo;
     private String boardSubject;
@@ -14,8 +16,8 @@ public class ResponseBoardDto {
     private int ref;
     private int reStep;
     private int reLevel;
-    private User user;
-    private Type type;
+    private String userId;
+    private long typeNo;
 
     public ResponseBoardDto(Board board) {
         this.boardNo = board.getBoardNo();
@@ -27,7 +29,9 @@ public class ResponseBoardDto {
         this.ref = board.getRef();
         this.reStep = board.getReStep();
         this.reLevel = board.getReLevel();
-        this.user = board.getUser();
-        this.type = board.getType();
+        this.userId = board.getUser().getUserId();
+        this.typeNo = board.getType().getTypeNo();
     }
+
+
 }

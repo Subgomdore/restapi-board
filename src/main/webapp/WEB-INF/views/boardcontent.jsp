@@ -6,28 +6,52 @@
 <head>
     <meta charset="UTF-8">
     <title>게시판 내용보기</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
+
+<script>
+
+    $(document).ready(function () {
+        console.log('boardcontent function test');
+        const typeNo = ${typeNo};
+        const boardNo = ${boardNo};
+        console.log(boardNo);
+        console.log(typeNo+boardNo)
+        $.ajax({
+            url: '/board/'+typeNo+'/'+boardNo ,
+            type: 'POST',
+            // data_type: "json",
+            // contentType: 'application/json',
+            // data:JSON.stringify({
+            //     boardNo:boardNo
+            // }),
+            success: function (data) {
+                console.log(data)
+                console.log(data.boardSubject)
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    })
+
+</script>
 
 <body>
 <div id="boardcont_wrap">
     <h2 class="boardcont_title">게시물 내용보기</h2>
     <table id="boardcont_t">
+
         <tr>
             <th>제목</th>
-            <td>${bcont.board_subject}</td>
+            <td></td>
         </tr>
 
         <tr>
             <th>글내용</th>
             <td>
-                <%--  ${board_cont} --%>
-                <pre>${bcont.board_content}</pre>
+                <pre></pre>
             </td>
-        </tr>
-
-        <tr>
-            <th>조회수</th>
-            <td>${bcont.board_readcount}</td>
         </tr>
     </table>
 

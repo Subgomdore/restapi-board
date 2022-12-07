@@ -10,6 +10,7 @@
 </head>
 
 <script>
+
     $(document).ready(function () {
         console.log('boardlist/{boardtypeNo}의 function 실행완료');
         const typeNo = '${typeNo}';

@@ -57,6 +57,10 @@ public class BoardService {
             return null;
         }
         ResponseBoardDto boardDto = new ResponseBoardDto(board.get());
+
+        log.info("{}",boardDto.getBoardNo());
+
+
         return boardDto;
     }
 

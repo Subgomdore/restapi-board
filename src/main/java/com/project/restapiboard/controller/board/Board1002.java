@@ -27,9 +27,9 @@ public class Board1002 {
         return res;
     }
 
-    @GetMapping("/{typeNo}/{boardNo}/cnt")
-    public ResponseBoardDto getBoardContent(@PathVariable long typeNo, long boardNo){
-        log.info("========== /"+typeNo+"/"+boardNo+" ==========");
+    @PostMapping("/{typeNo}/{boardNo}")
+    public ResponseBoardDto getBoardContent(@PathVariable long typeNo, @PathVariable long boardNo){
+        log.info("상세컨텐츠");
         return boardService.getBoardContent(boardNo);
     }
 
