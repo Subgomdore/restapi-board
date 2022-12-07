@@ -1,10 +1,8 @@
 package com.project.restapiboard.service;
 
-import com.project.restapiboard.dto.request.Req;
-import com.project.restapiboard.dto.request.RequestTypeDto;
+import com.project.restapiboard.dto.request.RequestBoardDto;
 import com.project.restapiboard.dto.response.ResBoardeListDto;
 import com.project.restapiboard.dto.response.ResponseBoardDto;
-import com.project.restapiboard.dto.response.ResponseTypeDto;
 import com.project.restapiboard.entity.Board;
 import com.project.restapiboard.entity.Type;
 import com.project.restapiboard.entity.User;
@@ -62,26 +60,18 @@ public class BoardService {
         return boardDto;
     }
 
-    public void addContent(Req req) {
-        Optional<Type> type = typeRepository.findById(req.getTypeNo()); // Type Entity
-        Optional<User> user = userRepository.findById(req.getUserId()); // User Etnity
+    public void addContent(RequestBoardDto boardDto) {
+        Optional<Type> type = typeRepository.findById(boardDto.getTypeNo()); // Type Entity
+        Optional<User> user = userRepository.findById(boardDto.getUserId()); // User Etnity
 
-        req.setUser(user.get());
-        req.setType(type.get());
-        Board board = req.toEntity();
+        boardDto.setUser(user.get()); // DTO에 Setter를 사용하는게 맞는건가.. 일일이 클래스를 나눠서 관리해야되는가? 나중에 inner클래스방식 찾아볼것.
+        boardDto.setType(type.get());
+
+        Board board = boardDto.toEntity();
         log.info(Long.toString(board.getType().getTypeNo()));
         log.info(board.getUser().getUserId());
         boardRepository.save(board);
 
-
-//        User user = req.SetUserId(req.getUserId()); // 형식이 맞지않음... 객체를 넣어야되는데 String값임
-
-        /** req에 있는 인자값 UserId, TypeNo를 객체로 가공해줘야하는데.. 방법이.... */
-
-
-//        User user = req.toEntity();
-//        log.info(user.getUserId());
-//        boardRepository.save(board);
     }
 
 }

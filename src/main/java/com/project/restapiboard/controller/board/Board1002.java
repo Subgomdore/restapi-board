@@ -1,6 +1,6 @@
 package com.project.restapiboard.controller.board;
 
-import com.project.restapiboard.dto.request.Req;
+import com.project.restapiboard.dto.request.RequestBoardDto;
 import com.project.restapiboard.dto.response.ResBoardeListDto;
 import com.project.restapiboard.dto.response.ResponseBoardDto;
 import com.project.restapiboard.service.BoardService;
@@ -35,10 +35,10 @@ public class Board1002 {
 
 
     @PostMapping("/{typeNo}/write-add")
-    public void addContent(@RequestBody Req req, @PathVariable long typeNo) {
+    public void addContent(@RequestBody RequestBoardDto boardDto, @PathVariable long typeNo) {
         log.info("==========  /{boardtype_no}/write-add ========== ");
-        log.info("{}", req);
-        boardService.addContent(req);
+        log.info("{}", boardDto);
+        boardService.addContent(boardDto);
     }
 
 
