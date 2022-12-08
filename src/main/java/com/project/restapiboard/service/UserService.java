@@ -33,28 +33,5 @@ public class UserService {
         Optional<User> loginUser = userRepository.findById(user.getUser_no());
         return loginUser.get();
     }
-    public User insert(User user) {
-        return  userRepository.save(user);
-    }
-
-    public long getCount() {
-        return userRepository.count();
-    }
-
-    public List<User> getList() {
-        return userRepository.findAll();
-    }
-
-    public User getContent(int user_no) {
-        return userRepository.findByNo(user_no);
-    }
-
-    public User update(User user) {
-        return userRepository.save(user);
-    }
-
-    public void delete(User user) {
-        userRepository.delete(user);
-    }
 
 }

@@ -35,6 +35,8 @@ public class UserController {
 
     @PostMapping("/signin")
     public int loginUser(@RequestBody User user) {
+        System.out.println(user.getUser_id());
+        System.out.println(user.getUser_password());
         log.info(user.getUser_password());
         int result = -1;
         User loginUser = userService.login(user);
@@ -46,6 +48,7 @@ public class UserController {
         }
         return result;
     }
+
 
     }
 

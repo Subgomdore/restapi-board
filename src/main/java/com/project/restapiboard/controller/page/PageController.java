@@ -18,6 +18,8 @@ public class PageController {
 
 
     @RequestMapping("/boardform")
-    public String UserJoinForm(){return "user/boardform";}
+    public String UserJoinForm(){
+        return "user/boardform";
+    }
 
 }
