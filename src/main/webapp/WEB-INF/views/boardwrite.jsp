@@ -1,16 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="header.jsp"%>
+
 <!DOCTYPE html>
-<%@include file="resources/cssfile.jsp" %>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>글쓰기게시판</title>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <title>Insert title here</title>
 </head>
 
 <script>
-
     function submitWrite() {
         console.log('submitWrite 작동');
         const frmData = $('form').serialize();
@@ -28,7 +26,6 @@
         const boardContent = $('#boardContent').val();
         console.log(boardContent)
 
-
         $.ajax({
             url: 'write-add',
             type: 'POST',
@@ -43,57 +40,45 @@
                 reStep:reStep,
                 reLevel:reLevel
 
-
             }),
             success: function (data) {
-                console.log(data);
-
+                alert("성공");
             },
             error: function (data) {
-                console.log(data);
+                alert("실패");
             }
-
-
         })
     }
-
-
 </script>
+
 <body>
-${typeNo}의 게시판 <br>
-접속중인아이디: ${sessionid} <br>
+<div class="container" align="center">
+    <h2 class="text-primary">게시판 글쓰기</h2>
 
-<div id="bbswrite_wrap">
-    <h2 class="bbswrite_title">게시판 입력폼</h2>
-    <form id="frm" name="frm">
-        <input type="hidden" value="${typeNo}" name="typeNo"/>
-        <input type="hidden" value="${sessionid}" name="userId"/>
+    <input type="hidden" value="${typeNo}" name="typeNo"/>
 
-        <table id="bbswrite_t">
+        <table class="table table-striped">
             <tr>
-                <th>글제목</th>
-                <td>
-                    <input name="boardSubject" id="boardSubject" size="40"
-                           class="input_box"/>
-                </td>
+                <td>제목</td>
+                <td><input type="text" id="boardSubject" name="boardSubject" required="required"></td>
             </tr>
-
             <tr>
-                <th>글내용</th>
-                <td>
-      <textarea name="boardContent" id="boardContent" rows="8" cols="50" class="input_box"></textarea>
-                </td>
+                <td>작성자</td>
+                <td><input type="text" name="userId" required="required" readonly value="${sessionid}" style="border:0 solid black;" ></td>
             </tr>
-
+            <tr>
+                <td>내용</td>
+                <td><textarea rows="5" id="boardContent" cols="30" name="boardContent" required="required"></textarea></td>
+            </tr>
         </table>
 
-        <div id="bbswrite_menu">
-            <input type="button" value="등록" onclick="submitWrite()" class="input_button"/>
-            <input type="reset" value="취소" class="input_button" onclick="$('#board_name').focus();"/>
-        </div>
+    <div id="bbswrite_menu">
+        <input type="button" value="등록" onclick="submitWrite()" class="input_button"/>
+        <input type="reset" value="취소" class="input_button" onclick="$('#boardSubject').focus();"/>
+    </div>
+
     </form>
+
 </div>
-
-
 </body>
 </html>

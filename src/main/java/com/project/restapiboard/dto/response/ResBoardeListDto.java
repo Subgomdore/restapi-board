@@ -2,10 +2,12 @@ package com.project.restapiboard.dto.response;
 
 import com.project.restapiboard.entity.Board;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+import java.time.LocalDateTime;
+
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResBoardeListDto {
@@ -16,6 +18,10 @@ public class ResBoardeListDto {
     private String boardUpload;
     private String boardOldfilename;
     private String boardNewfilename;
+    private long boardCount;
+    private String boardCreate;
+//    private LocalDateTime boardCreate;
+    private String boardRevision;
     private int ref;
     private int reStep;
     private int reLevel;
@@ -29,6 +35,10 @@ public class ResBoardeListDto {
         this.boardUpload = board.getBoardUpload();
         this.boardOldfilename = board.getBoardOldfilename();
         this.boardNewfilename = board.getBoardNewfilename();
+        this.boardCount = board.getBoardCount();
+        this.boardCreate = board.getBoardCreate();
+//        this.boardCreate = board.getBoardCreate();
+        this.boardRevision = board.getBoardRevision();
         this.ref =board.getRef();
         this.reStep = board.getReStep();
         this.reLevel = board.getReLevel();

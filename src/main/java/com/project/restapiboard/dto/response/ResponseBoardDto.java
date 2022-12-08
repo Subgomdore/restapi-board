@@ -5,6 +5,8 @@ import com.project.restapiboard.entity.Type;
 import com.project.restapiboard.entity.User;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class ResponseBoardDto {
     private long boardNo;
@@ -13,6 +15,10 @@ public class ResponseBoardDto {
     private String boardUpload;
     private String boardOldfilename;
     private String boardNewfilename;
+    private long boardCount;
+    private String boardCreate;
+//    private LocalDateTime boardCreate;
+    private String boardRevision;
     private int ref;
     private int reStep;
     private int reLevel;
@@ -26,6 +32,9 @@ public class ResponseBoardDto {
         this.boardUpload = board.getBoardUpload();
         this.boardOldfilename = board.getBoardOldfilename();
         this.boardNewfilename = board.getBoardNewfilename();
+        this.boardCount = board.getBoardCount();
+        this.boardCreate = board.getBoardCreate();
+        this.boardRevision = board.getBoardRevision();
         this.ref = board.getRef();
         this.reStep = board.getReStep();
         this.reLevel = board.getReLevel();
