@@ -37,7 +37,6 @@ public class BoardService {
         List<Board> boardList = boardRepository.findByType_TypeNo(typeNo);
 
         for (int i = 0; i < boardList.size(); i++) {
-            log.info("게시물수 :"+ Long.toString(boardList.size()));
             log.info("boardSubject: {}", boardList.get(i).getBoardSubject());
         }
 
@@ -57,14 +56,11 @@ public class BoardService {
             return null;
         }
         ResponseBoardDto boardDto = new ResponseBoardDto(board.get());
-
-        log.info("{}",boardDto.getBoardNo());
-
-
         return boardDto;
     }
 
     public void addContent(RequestBoardDto boardDto) {
+
         Optional<Type> type = typeRepository.findById(boardDto.getTypeNo()); // Type Entity
         Optional<User> user = userRepository.findById(boardDto.getUserId()); // User Etnity
 
@@ -75,7 +71,9 @@ public class BoardService {
         log.info(Long.toString(board.getType().getTypeNo()));
         log.info(board.getUser().getUserId());
         boardRepository.save(board);
-
     }
 
+    public void contentCount(long boardNo) {
+        boardRepository.updateCount(boardNo);
+    }
 }

@@ -46,6 +46,8 @@ public class UserController {
     /*로그인: 비밀번호 조회 후 return */
     @PostMapping("/signin")
     public int loginCheck(@RequestBody RequestUserDto requestUserDto, HttpServletRequest request) {
+        System.out.println(requestUserDto.getUserId());
+        System.out.println(requestUserDto.getUserPass());
         int result = -1;
         ResponseUserDto loginUser = userService.loginCheck(requestUserDto);
 

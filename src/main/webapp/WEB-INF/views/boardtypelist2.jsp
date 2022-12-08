@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="resources/cssfile.jsp" %>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>게시판 목록</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 
+<%--PageController로 jsp에 온다음. list를 불러오는 비동기요청을 다시함--%>
 <script>
     $(document).ready(function () {
 
@@ -32,6 +35,7 @@
     })
 </script>
 
+<%--BoardType을 추가하는 요청--%>
 <script>
 
     function Type_insert(){
@@ -58,31 +62,25 @@
 
 </script>
 <body>
-
 접속중인아이디: ${sessionid} <br>
 게시판종류 추가하기: <input id="typeName" type="text"/> <input type="button" onclick="Type_insert()" value="추가"/>
 
-<div class="container" align="center">
-    <h2 class="text-primary">게시판 목록</h2>
-    <table class="table table-striped">
-        <tr>
-            <td align="center">번호</td>
-            <td align="center">제목</td>
+<div id="bbslist_wrap">
+    <h2 class="bbslist_title">게시판 목록</h2>
+    <table id="bbslist_t" border="1">
+        <tr align="center" valign="middle" bordercolor="#333333">
+            <td style="font-family: Tahoma; font-size: 11pt;" width="8%" height="26">
+                <div align="center">typeNo</div>
+            </td>
+            <td style="font-family: Tahoma; font-size: 11pt;" width="40%">
+                <div align="center">typeName</div>
+            </td>
         </tr>
-<%--        <c:if test="${empty list}">--%>
-<%--            <tr>--%>
-<%--                <td colspan="5">데이터가 없습니다</td>--%>
-<%--            </tr>--%>
-<%--        </c:if>--%>
-
-
         <tbody class="table_body">
 
         </tbody>
     </table>
-
-
-
+    <div id="result"></div>
 </div>
 </body>
 </html>

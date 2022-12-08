@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="resources/cssfile.jsp" %>
+<%@ include file="header.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>컨텐츠 리스트(특정게시판의 글리스트)</title>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <title>Insert title here</title>
 </head>
 
 <script>
-
     $(document).ready(function () {
+
+
         console.log('boardlist/{boardtypeNo}의 function 실행완료');
         const typeNo = '${typeNo}';
         console.log(typeNo);
@@ -28,9 +28,11 @@
                 $.each(data, function (i) {
                     console.log(i)
                     str += '<TD align="center" id="bno'+i+'"> ' + data[i].typeNo + '</TD>' +
-                        '<TD align="center" id="bsubject'+i+'"> <a href="${typeNo}/'+ data[i].boardNo +'">'+data[i].boardSubject+'</a></TD>' +
+                        '<TD align="center" id="bsubject'+i+'"> <a class="btn btn-default" onclick="upCount()" href="${typeNo}/'+ data[i].boardNo +'">'+data[i].boardSubject+'</a></TD>' +
                         '<TD align="center" id="buserId'+i+'">' + data[i].userId + '</TD>' +
-                    '<input type="hidden" id="bno+'+i+'" value="'+ data[i].boardNo +'">';
+                        '<TD align="center" id="bcreate'+i+'">' + data[i].boardCreate + '</TD>' +
+                        '<TD align="center" id="bcount'+i+'">'+data[i].boardCount+'</TD>'+
+                        '<input type="hidden" id="bno+'+i+'" value="'+ data[i].boardNo +'">';
                     str += '</TR>';
                 });
                 $('.table_body').append(str);
@@ -41,35 +43,96 @@
         });
     })
 </script>
+<script>
+
+    function upCount(){
+        // 어떻게 boardNo값을 가져가지..
+        const boardNo = $('#boardNo').val();
+        alert(boardNo);
 
 
+        $.ajax({
+            URL: '/board/'+typeNo+'/count' ,
+            Type: 'POST', // 특정번호글 선택해서, readcount up
+            data_type: "json",
+            contentType: 'application/json',
+            data:JSON.stringify({
+                boardNo: boardNo
+            }),
+            success: function () {
+                alert('조회수성공')
+
+            },
+            error: function (){
+                alert('조회수실패')
+            }
+        })
+    }
+
+</script>
 <body>
-${typeNo}의 게시판 <br>
-접속중인아이디: ${sessionid} <br>
-
-
-<div id="bbslist_wrap">
-    <h2 class="bbslist_title">게시글목록</h2>
-    <table id="bbslist_t" border="1">
-        <tr align="center" valign="middle" bordercolor="#333333">
-            <td style="font-family: Tahoma; font-size: 11pt;" width="15%" height="26">
-                <div align="center">글번호(페이징값으로 변경예정)</div>
-            </td>
-            <td style="font-family: Tahoma; font-size: 11pt;" width="25%">
-                <div align="center">글제목</div>
-            </td>
-            <td style="font-family: Tahoma; font-size: 11pt;" width="25%">
-                <div align="center">작성자</div>
-            </td>
+<div class="container" align="center">
+    <h2 class="text-primary">게시판 목록</h2>
+    <table class="table table-striped">
+        <tr>
+            <td align="center">번호</td>
+            <td align="center">제목</td>
+            <td align="center">작성자</td>
+            <td align="center">작성일</td>
+            <td align="center">조회수</td>
         </tr>
-        <%--여기에 AJAX 리턴값을 추가해서 반환한다.--%>
         <tbody class="table_body">
 
         </tbody>
     </table>
 
-    <div id="bbslist_w">
-        <input type="button" value="글쓰기" class="input_button" onclick="location.href=${typeNo} + '/boardwrite'">
+
+    <form<%-- action="${path}/list/pageNum/1"--%>>
+        <select name="search">
+            <option value="subject"
+                    <c:if test="${search=='subject'}">selected="selected" </c:if>>제목
+            </option>
+            <option value="content"
+                    <c:if test="${search=='content'}">selected="selected" </c:if>>내용
+            </option>
+            <option value="writer"
+                    <c:if test="${search=='writer'}">selected="selected" </c:if>>작성자
+            </option>
+            <option value="subcon"
+                    <c:if test="${search=='subcon'}">selected="selected" </c:if>>제목+내용
+            </option>
+        </select>
+        <input type="text" name="keyword">
+        <input type="submit" value="확인">
+    </form>
+    <ul class="pagination">
+        <c:if test="${not empty keyword}">
+            <c:if test="${pp.startPage > pp.pagePerBlk }">
+                <li><a href="${path }/list/pageNum/${pp.startPage - 1}?search=${search}&keyword=${keyword}">이전</a></li>
+            </c:if>
+            <c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
+                <li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a
+                        href="${path }/list/pageNum/${i}?search=${search}&keyword=${keyword}">${i}</a></li>
+            </c:forEach>
+            <c:if test="${pp.endPage < pp.totalPage}">
+                <li><a href="${path }/list/pageNum/${pp.endPage + 1}?search=${search}&keyword=${keyword}">다음</a></li>
+            </c:if>
+        </c:if>
+        <c:if test="${empty keyword}">
+            <c:if test="${pp.startPage > pp.pagePerBlk }">
+                <li><a href="${path }/list/pageNum/${pp.startPage - 1}">이전</a></li>
+            </c:if>
+            <c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
+                <li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a
+                        href="${path }/list/pageNum/${i}">${i}</a></li>
+            </c:forEach>
+            <c:if test="${pp.endPage < pp.totalPage}">
+                <li><a href="${path }/list/pageNum/${pp.endPage + 1}">다음</a></li>
+            </c:if>
+        </c:if>
+    </ul>
+    <div align="center">
+        <input type="button" value="글쓰기" class="btn btn-info" onclick="location.href=${typeNo} + '/boardwrite'">
     </div>
 </div>
 </body>
