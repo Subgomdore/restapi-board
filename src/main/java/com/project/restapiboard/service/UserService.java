@@ -30,7 +30,11 @@ public class UserService {
     }
 
     public User login(User user) {
-        Optional<User> loginUser = userRepository.findById(user.getUser_no());
+        Optional<User> loginUser = userRepository.findByUserId(user.getUserId());
+        if(!loginUser.isPresent()){
+            return null;
+        }
+        loginUser.get().getUserId();
         return loginUser.get();
     }
 

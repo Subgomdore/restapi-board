@@ -6,28 +6,29 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
-    <link rel="stylesheet" type="text/css" href="./css/admin.css" />
-    <link rel="stylesheet" type="text/css" href="./css/member.css" />
+<%--    <link rel="stylesheet" type="text/css" href="./css/admin.css" />--%>
+<%--    <link rel="stylesheet" type="text/css" href="./css/member.css" />--%>
+<%--    <link rel="stylesheet" th:href="@{/css/style.css}"/>--%>
     <!-- <script src="./js/jquery.js"></script> -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 
     <script>
         function login() {
-            if ($.trim($("#user_id").val()) == "") {
+            if ($.trim($("#userId").val()) == "") {
                 alert("로그인 아이디를 입력하세요!");
-                $("#user_id").val("").focus();
+                $("#userId").val("").focus();
                 return false;
             }
-            if ($.trim($("#user_password").val()) == "") {
+            if ($.trim($("#userPw").val()) == "") {
                 alert("비밀번호를 입력하세요!");
-                $("#user_password").val("").focus();
+                $("#userPw").val("").focus();
                 return false;
             }
-            const user_id = $('#user_id').val();
-            const user_password = $('#user_password').val();
+            const userId = $('#userId').val();
+            const userPw = $('#userPw').val();
             const data = JSON.stringify({
-                user_id: user_id,
-                user_password: user_password
+                userId: userId,
+                userPw: userPw
             })
 
             $.ajax({
@@ -58,14 +59,14 @@
             <tr>
                 <th>아이디</th>
                 <td>
-                    <input name="user_id" id="user_id" size="20" class="input_box" />
+                    <input name="userId" id="userId" size="20" class="input_box" />
                 </td>
             </tr>
 
             <tr>
                 <th>비밀번호</th>
                 <td>
-                    <input type="user_password" name="user_password" id="user_password" size="20" class="input_box"/>
+                    <input type="userPw" name="userPw" id="userPw" size="20" class="input_box"/>
                 </td>
             </tr>
         </table>

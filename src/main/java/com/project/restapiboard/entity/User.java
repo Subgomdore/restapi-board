@@ -20,7 +20,7 @@ import java.sql.Timestamp;
         , initialValue = 1
         , allocationSize = 1
 )
-@Table(name = "user711")
+@Table(name = "user712")
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "사용자 상세 정보를 위한 도메인 객체")
@@ -28,17 +28,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE
             , generator = "USER_SEQ_GENERATOR")
-    private Long user_no;
+    private Long userNo;
 
     @Size(min=2, message = "ID 2글자 이상 입력해 주세요.")
     @ApiModelProperty(notes = "사용자 이름을 입력해 주세요.")
-    private String user_id;
+    private String userId;
     @ApiModelProperty(notes = "사용자의 패스워드를 입력해 주세요.")
-    private String user_password;
+    private String userPw;
     @ApiModelProperty(notes = "사용자의 이메일 입력해 주세요.")
-    private String user_email;
+    private String userEmail;
     @ApiModelProperty(notes = "사용자의 내용을 입력해 주세요.")
-    private String user_content;
+    private String userContent;
 //    @OneToMany(mappedBy = "user")
 //    private List<Post> posts;
 
@@ -46,10 +46,10 @@ public class User {
     private Timestamp createDate;
 
     @Builder
-    public User(String user_id, String user_password, String user_email,String user_content) {
-        this.user_id = user_id;
-        this.user_password = user_password;
-        this.user_email = user_email;
-        this.user_content = user_content;
+    public User(String userId, String userPw, String userEmail,String userContent) {
+        this.userId = userId;
+        this.userPw = userPw;
+        this.userEmail = userEmail;
+        this.userContent = userContent;
     }
 }

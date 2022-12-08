@@ -35,17 +35,19 @@ public class UserController {
 
     @PostMapping("/signin")
     public int loginUser(@RequestBody User user) {
-        System.out.println(user.getUser_id());
-        System.out.println(user.getUser_password());
-        log.info(user.getUser_password());
+        System.out.println(user.getUserId());
+        System.out.println(user.getUserPw());
+        log.info(user.getUserPw());
         int result = -1;
         User loginUser = userService.login(user);
-        log.info(loginUser.getUser_password());
+        log.info(loginUser.getUserPw());
 
-        if(loginUser.getUser_password().equals(user.getUser_password())){
+        if(loginUser.getUserPw().equals(user.getUserPw())){
             result = 1;
+            log.info(Long.toString(result));
             return result;
         }
+        log.info(Long.toString(result));
         return result;
     }
 
