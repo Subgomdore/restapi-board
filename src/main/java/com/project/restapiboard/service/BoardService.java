@@ -30,8 +30,6 @@ public class BoardService {
     @Autowired
     UserRepository userRepository;
 
-    // Entity에 는 boardtype_no가 없다. ( DB에는 boardtype_no가 있다)
-    // No property 'boardList' found for type 'Board'
     public List<ResBoardeListDto> getBoardList(long typeNo) {
         log.info("========== service: getBoardList ==========");
         List<Board> boardList = boardRepository.findByType_TypeNo(typeNo);
@@ -49,7 +47,7 @@ public class BoardService {
         return resBoardeListDtos;
     }
 
-    /*게시글 상세내용 확인보기. view페이지 구현안됬음*/
+    /*게시글 상세내용 확인보기*/
     public ResponseBoardDto getBoardContent(long boardNo) {
         Optional<Board> board = boardRepository.findById(boardNo);
         if (!board.isPresent()) {
@@ -59,6 +57,7 @@ public class BoardService {
         return boardDto;
     }
 
+    /*게시글 작성*/
     public void addContent(RequestBoardDto boardDto) {
 
         Optional<Type> type = typeRepository.findById(boardDto.getTypeNo()); // Type Entity
@@ -73,7 +72,9 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    /*조회수 증가*/
     public void contentCount(long boardNo) {
+
         boardRepository.updateCount(boardNo);
     }
 }

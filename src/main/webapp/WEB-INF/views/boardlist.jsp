@@ -27,8 +27,9 @@
                 str = '<TR align="center">';
                 $.each(data, function (i) {
                     console.log(i)
-                    str += '<TD align="center" id="bno'+i+'"> ' + data[i].typeNo + '</TD>' +
-                        '<TD align="center" id="bsubject'+i+'"> <a class="btn btn-default" onclick="upCount()" href="${typeNo}/'+ data[i].boardNo +'">'+data[i].boardSubject+'</a></TD>' +
+                    str += '<TD align="center" id="bno'+i+'">' + data[i].typeNo + '</TD>' +
+                        // '<TD align="center" id="bsubject'+i+'"> <a class="btn btn-default" onclick="upCount('+data[i].boardNo+','+data[i].typeNo+')" >'+data[i].boardSubject+'</a></TD>' +
+                        '<TD align="center" id="bsubject'+i+'"> <a class="btn btn-default" onclick="upCount('+data[i].boardNo+','+data[i].typeNo+')" href="${typeNo}/'+ data[i].boardNo +'">'+data[i].boardSubject+'</a></TD>' +
                         '<TD align="center" id="buserId'+i+'">' + data[i].userId + '</TD>' +
                         '<TD align="center" id="bcreate'+i+'">' + data[i].boardCreate + '</TD>' +
                         '<TD align="center" id="bcount'+i+'">'+data[i].boardCount+'</TD>'+
@@ -41,23 +42,29 @@
                 console.log('에러');
             }
         });
+
+
     })
 </script>
 <script>
+    $(document).ready(function (){
 
-    function upCount(){
-        // 어떻게 boardNo값을 가져가지..
-        const boardNo = $('#boardNo').val();
-        alert(boardNo);
+    })
 
+
+    function upCount(bno, tNo){
+        const boardNo = bno;
+        const typeNo = tNo;
 
         $.ajax({
-            URL: '/board/'+typeNo+'/count' ,
-            Type: 'POST', // 특정번호글 선택해서, readcount up
+            // URL: '/board/'+typeNo+'/'+boardNo+'/count' ,
+            url: '/board/'+typeNo+'/'+boardNo+'/count',
+            method: 'PUT',
             data_type: "json",
             contentType: 'application/json',
             data:JSON.stringify({
-                boardNo: boardNo
+                boardNo: boardNo,
+                typeNo:typeNo
             }),
             success: function () {
                 alert('조회수성공')

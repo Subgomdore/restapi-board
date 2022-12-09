@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ include file="header.jsp"%>
+         pageEncoding="UTF-8" %>
+<%@ include file="header.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,15 +13,10 @@
             const typeNo = ${typeNo};
             const boardNo = ${boardNo};
             console.log(boardNo);
-            console.log(typeNo+boardNo)
+            console.log(typeNo + boardNo)
             $.ajax({
-                url: '/board/'+typeNo+'/'+boardNo ,
+                url: '/board/' + typeNo + '/' + boardNo,
                 type: 'POST',
-                // data_type: "json",
-                // contentType: 'application/json',
-                // data:JSON.stringify({
-                //     boardNo:boardNo
-                // }),
                 success: function (data) {
                     console.log(data)
                     console.log(data.boardSubject)
@@ -42,10 +37,10 @@
         /* 	window.onload=function() {
 
          } */
-        $(function() {
+        $(function () {
             <%--$('#slist').load('${path}/slist/num/${board.num}')--%>
 //		$('#list').load('${path}/list/pageNum/${pageNum}');
-            $('#repInsert').click(function() {
+            $('#repInsert').click(function () {
                 if (!frm.replytext.value) {
                     alert('댓글 입력후에 클릭하시오');
                     frm.replytext.focus();
@@ -54,7 +49,7 @@
                 var frmData = $('form').serialize();
                 // var frmData = 'replyer='+frm.replyer.value+'&bno='+
                 //				  frm.bno.value+'&replytext='+frm.replytext.value;
-                $.post('${path}/sInsert', frmData, function(data) {
+                $.post('${path}/sInsert', frmData, function (data) {
                     $('#slist').html(data);
                     frm.replytext.value = '';
                 });
@@ -88,16 +83,16 @@
         </tr>
         <tr>
             <td>내용</td>
-            <td><pre id="boardContent"></pre></td>
+            <td>
+                <pre id="boardContent"></pre>
+            </td>
         </tr>
     </table>
-    <a href="${path}/list/pageNum/${pageNum}" class="btn btn-info">목록</a>
-    <a href="${path}/updateForm/num/${board.num}/pageNum/${pageNum}"
-       class="btn btn-info">수정</a> <a
-        href="${path}/deleteForm/num/${board.num}/pageNum/${pageNum}"
-        class="btn btn-info">삭제</a> <a
-        href="${path}/insertForm/nm/${board.num}/pageNum/${pageNum}"
-        class="btn btn-info">답변</a>
+    <a href="" class="btn btn-info">목록</a>
+    <a href="" class="btn btn-info">수정</a>
+    <a href="" class="btn btn-info">삭제</a>
+    <a href="" class="btn btn-info">답변</a>
+
     <p>
     <form name="frm" id="frm">
         <input type="hidden" name="replyer" value="${board.writer}">

@@ -29,9 +29,11 @@ public class Board1002 {
     }
 
     /*게시글 조회수 상승*/
-    @PostMapping("/{typeNo}/{boardNo}/count")
+    @PutMapping("/{typeNo}/{boardNo}/count")
     public void contentCount(@PathVariable long typeNo, @PathVariable long boardNo){
-        log.error("==========================================================count =====================================");
+        log.error("*** count ***");
+        log.info(Long.toString(typeNo));
+        log.info(Long.toString(boardNo));
         boardService.contentCount(boardNo);
     }
 
