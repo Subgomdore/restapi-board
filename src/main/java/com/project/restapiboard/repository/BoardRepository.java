@@ -1,6 +1,7 @@
 package com.project.restapiboard.repository;
 
 import com.project.restapiboard.entity.Board;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Modifying
     @Query("update Board b set b.boardCount = b.boardCount + 1 where b.boardNo = :boardNo")
     void updateCount(long boardNo);
+
+    Page<Board> findByBoardNo(long typeNo);
 }

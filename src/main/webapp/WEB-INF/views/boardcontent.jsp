@@ -7,8 +7,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
+    <%-- 게시판 내용 불러오기--%>
     <script>
         $(document).ready(function () {
+
             console.log('boardcontent function test');
             const typeNo = ${typeNo};
             const boardNo = ${boardNo};
@@ -26,13 +28,52 @@
                     $('#boardCreate').append(data.boardCreate);
                     $('#boardRevision').append(data.boardRevision);
                     $('#boardContent').append(data.boardContent);
+                    $('#typeNo').append(data.typeNo);
+                    $('#boardNo').val(data.boardNo);
                 },
                 error: function (data) {
                     console.log(data);
                 }
             });
+
+            /* 목록버튼 기능 (해당타입의 게시판리스트로) */
+            $('.bfoPage').click(function(){
+                location.href='/board/'+typeNo;
+            })
+
+            $('.uppage').click(function(){
+                location.href='/board/'+typeNo+'/'+boardNo+'/update';
+            })
+
+            /*글삭제 */
+            $('.delete').click(function(){
+                $.ajax({
+                    url: '/board/' + typeNo + '/' + boardNo+'/delete' ,
+                    type: 'delete',
+                    data_type: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        boardNo:boardNo,
+                    }),
+                    success: function (data) {
+                        alert('게시글이 삭제됨')
+                        location.href='/board/'+typeNo;
+                    },
+                    error: function (data) {
+                        console.log('삭제실패');
+                    }
+                });
+            })
+
+            $('.reply').click(function(){
+                location.href='';
+            })
+
+
         })
     </script>
+
+    <%--댓글 입력하기--%>
     <script type="text/javascript">
         /* 	window.onload=function() {
 
@@ -58,9 +99,11 @@
     </script>
 </head>
 <body>
+접속중인아이디: ${sessionid} <br>
 <div class="container" align="center">
     <h2 class="text-primary">게시글 상세정보</h2>
     <table class="table table-bordered">
+        <input type="hidden" id="boardNo">
         <tr>
             <td>제목</td>
             <td id="boardSubject"></td>
@@ -84,14 +127,16 @@
         <tr>
             <td>내용</td>
             <td>
-                <pre id="boardContent"></pre>
+                <textarea rows="3" id="boardContent" cols="50" name="boardContent" readonly="readonly"
+                          style="display: block; border: 1px; outline: none; resize: none;"></textarea>
             </td>
         </tr>
+
     </table>
-    <a href="" class="btn btn-info">목록</a>
-    <a href="" class="btn btn-info">수정</a>
-    <a href="" class="btn btn-info">삭제</a>
-    <a href="" class="btn btn-info">답변</a>
+    <input type="button" class="btn btn-info bfoPage" value="목록"/>
+    <input type="button" class="btn btn-info uppage" value="수정" />
+    <input type="button" class="btn btn-info delete" value="삭제" />
+    <input type="button" class="btn btn-info reply" value="답변" />
 
     <p>
     <form name="frm" id="frm">

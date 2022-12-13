@@ -12,6 +12,7 @@
     $(document).ready(function () {
 
 
+        /*게시판 리스트*/
         console.log('boardlist/{boardtypeNo}의 function 실행완료');
         const typeNo = '${typeNo}';
         console.log(typeNo);
@@ -46,12 +47,8 @@
 
     })
 </script>
+<%-- 조회수 증가 Function --%>
 <script>
-    $(document).ready(function (){
-
-    })
-
-
     function upCount(bno, tNo){
         const boardNo = bno;
         const typeNo = tNo;
@@ -67,17 +64,18 @@
                 typeNo:typeNo
             }),
             success: function () {
-                alert('조회수성공')
+                console('조회수성공')
 
             },
             error: function (){
-                alert('조회수실패')
+                console('조회수실패')
             }
         })
     }
 
 </script>
 <body>
+접속중인아이디: ${sessionid} <br>
 <div class="container" align="center">
     <h2 class="text-primary">게시판 목록</h2>
     <table class="table table-striped">

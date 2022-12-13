@@ -20,7 +20,6 @@ public class ResBoardeListDto {
     private String boardNewfilename;
     private long boardCount;
     private String boardCreate;
-//    private LocalDateTime boardCreate;
     private String boardRevision;
     private int ref;
     private int reStep;
@@ -28,7 +27,7 @@ public class ResBoardeListDto {
     private String userId;
     private long typeNo;
 
-    public ResBoardeListDto(Board board){
+    public ResBoardeListDto(Board board) {
         this.boardNo = board.getBoardNo();
         this.boardSubject = board.getBoardSubject();
         this.boardContent = board.getBoardContent();
@@ -37,9 +36,8 @@ public class ResBoardeListDto {
         this.boardNewfilename = board.getBoardNewfilename();
         this.boardCount = board.getBoardCount();
         this.boardCreate = board.getBoardCreate();
-//        this.boardCreate = board.getBoardCreate();
         this.boardRevision = board.getBoardRevision();
-        this.ref =board.getRef();
+        this.ref = board.getRef();
         this.reStep = board.getReStep();
         this.reLevel = board.getReLevel();
         this.userId = board.getUser().getUserId();

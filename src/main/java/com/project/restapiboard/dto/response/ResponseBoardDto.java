@@ -17,7 +17,6 @@ public class ResponseBoardDto {
     private String boardNewfilename;
     private long boardCount;
     private String boardCreate;
-//    private LocalDateTime boardCreate;
     private String boardRevision;
     private int ref;
     private int reStep;
@@ -41,6 +40,5 @@ public class ResponseBoardDto {
         this.userId = board.getUser().getUserId();
         this.typeNo = board.getType().getTypeNo();
     }
-
 
 }

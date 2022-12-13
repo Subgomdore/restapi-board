@@ -13,6 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RequestBoardDto {
 
+    private long boardNo;
     private String boardSubject;
     private String boardContent;
     private String boardUpload;
@@ -28,6 +29,7 @@ public class RequestBoardDto {
 
     public Board toEntity() {
         return Board.builder()
+                .boardNo(boardNo)
                 .boardSubject(boardSubject)
                 .boardContent(boardContent)
                 .boardUpload(boardUpload)

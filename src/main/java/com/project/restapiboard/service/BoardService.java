@@ -63,18 +63,33 @@ public class BoardService {
         Optional<Type> type = typeRepository.findById(boardDto.getTypeNo()); // Type Entity
         Optional<User> user = userRepository.findById(boardDto.getUserId()); // User Etnity
 
-        boardDto.setUser(user.get()); // DTO에 Setter를 사용하는게 맞는건가.. 일일이 클래스를 나눠서 관리해야되는가? 나중에 inner클래스방식 찾아볼것.
+        boardDto.setUser(user.get());
         boardDto.setType(type.get());
 
         Board board = boardDto.toEntity();
-        log.info(Long.toString(board.getType().getTypeNo()));
-        log.info(board.getUser().getUserId());
         boardRepository.save(board);
     }
 
     /*조회수 증가*/
-    public void contentCount(long boardNo) {
-
+    public void countContent(long boardNo) {
         boardRepository.updateCount(boardNo);
+    }
+
+    /*게시글 수정*/
+    public void updateContent(RequestBoardDto boardDto) {
+        Optional<Board> board = boardRepository.findById(boardDto.getBoardNo());
+        boardDto.setUser(board.get().getUser());
+        boardDto.setType(board.get().getType());
+        Board boardEntity = boardDto.toEntity();
+//        boardRepository.save(boardEntity);
+
+
+
+    }
+
+    /*게시글 삭제*/
+    public void deleteContent(RequestBoardDto boardDto) {
+        Board board = boardDto.toEntity();
+        boardRepository.delete(board);
     }
 }

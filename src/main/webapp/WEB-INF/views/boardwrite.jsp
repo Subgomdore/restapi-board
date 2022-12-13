@@ -10,16 +10,12 @@
 
 <script>
     function submitWrite() {
-        console.log('submitWrite 작동');
-        const frmData = $('form').serialize();
-        console.log(frmData);
-
 
         const userId = '${sessionid}';
-        const typeNo = '${typeNo}';
+        const typeNo = ${typeNo};
         const ref = 0;
-        const reStep =0;
-        const reLevel=0;
+        const reStep = 0;
+        const reLevel= 0;
 
         const boardSubject = $('#boardSubject').val();
         console.log(boardSubject);
@@ -53,6 +49,7 @@
 </script>
 
 <body>
+접속중인아이디: ${sessionid} <br>
 <div class="container" align="center">
     <h2 class="text-primary">게시판 글쓰기</h2>
 
@@ -65,7 +62,7 @@
             </tr>
             <tr>
                 <td>작성자</td>
-                <td><input type="text" name="userId" required="required" readonly value="${sessionid}" style="border:0 solid black;" ></td>
+                <td><input type="text" name="userId" required="required" readonly value="${sessionid}" style="border:0 solid black; outline: none" ></td>
             </tr>
             <tr>
                 <td>내용</td>
