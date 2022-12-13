@@ -37,7 +37,7 @@ public class PageController {
         return "boardtypelist";
     }
 
-    /*게시판타입 목록(일반, 거래, 질문게시판 등등) */
+    /*특정게시판안의 리스트 불러오기*/
     @RequestMapping("/board/{typeNo}")
     public String boardList(@PathVariable long typeNo, Model model) {
         log.info("/board/{typeNo}");
@@ -61,5 +61,14 @@ public class PageController {
         model.addAttribute("boardNo", boardNo);
 
         return "boardcontent";
+    }
+
+    @GetMapping("/board/{typeNo}/{boardNo}/update")
+    public String boadrUpdate(@PathVariable long typeNo, @PathVariable long boardNo, Model model){
+        log.info("update form");
+        model.addAttribute("typeNo", typeNo);
+        model.addAttribute("boardNo",boardNo);
+
+        return "boardupdate";
     }
 }

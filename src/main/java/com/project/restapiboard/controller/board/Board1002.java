@@ -6,6 +6,7 @@ import com.project.restapiboard.dto.response.ResponseBoardDto;
 import com.project.restapiboard.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class Board1002 {
         log.error("*** count ***");
         log.info(Long.toString(typeNo));
         log.info(Long.toString(boardNo));
-        boardService.contentCount(boardNo);
+        boardService.countContent(boardNo);
     }
 
 
@@ -55,4 +56,15 @@ public class Board1002 {
         boardService.addContent(boardDto);
     }
 
+    /*게시판글 수정하기*/
+    @PutMapping("/{typeNo}/{boardNo}/update")
+    public void updateContent(@RequestBody RequestBoardDto boardDto, @PathVariable long typeNo, @PathVariable long boardNo, Model model){
+        log.info("=== 게시판글 수정하기 ===");
+        model.addAttribute("typeNo", typeNo);
+        model.addAttribute("boardNo", boardNo);
+        log.info(Long.toString(boardNo));
+        log.info(boardDto.getBoardSubject());
+        log.info(boardDto.getBoardContent());
+        boardService.updateContent(boardDto, boardNo);
+    }
 }

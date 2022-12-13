@@ -73,8 +73,15 @@ public class BoardService {
     }
 
     /*조회수 증가*/
-    public void contentCount(long boardNo) {
+    public void countContent(long boardNo) {
 
         boardRepository.updateCount(boardNo);
+    }
+
+
+    public void updateContent(RequestBoardDto boardDto, long boardNo) {
+        // boardNo 값 DTO Builder 처리해야함
+        Board board = boardDto.toEntity();
+        boardRepository.save(board);
     }
 }

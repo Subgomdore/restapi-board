@@ -7,8 +7,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
+    <%-- 게시판 내용 불러오기--%>
     <script>
         $(document).ready(function () {
+
             console.log('boardcontent function test');
             const typeNo = ${typeNo};
             const boardNo = ${boardNo};
@@ -26,13 +28,35 @@
                     $('#boardCreate').append(data.boardCreate);
                     $('#boardRevision').append(data.boardRevision);
                     $('#boardContent').append(data.boardContent);
+                    $('#typeNo').append(data.typeNo);
                 },
                 error: function (data) {
                     console.log(data);
                 }
             });
+
+            /* 목록버튼 기능 (해당타입의 게시판리스트로) */
+            $('.bfoPage').click(function(){
+                location.href='/board/'+typeNo;
+            })
+
+            $('.uppage').click(function(){
+                location.href='/board/'+typeNo+'/'+boardNo+'/update';
+            })
+
+            $('.delete').click(function(){
+                location.href='';
+            })
+
+            $('.reply').click(function(){
+                location.href='';
+            })
+
+
         })
     </script>
+
+    <%--댓글 입력하기--%>
     <script type="text/javascript">
         /* 	window.onload=function() {
 
@@ -84,14 +108,16 @@
         <tr>
             <td>내용</td>
             <td>
-                <pre id="boardContent"></pre>
+                <textarea rows="3" id="boardContent" cols="50" name="boardContent" readonly="readonly"
+                          style="display: block; border: 1px; outline: none; resize: none;"></textarea>
             </td>
         </tr>
+
     </table>
-    <a href="" class="btn btn-info">목록</a>
-    <a href="" class="btn btn-info">수정</a>
-    <a href="" class="btn btn-info">삭제</a>
-    <a href="" class="btn btn-info">답변</a>
+    <input type="button" class="btn btn-info bfoPage" value="목록"/>
+    <input type="button" class="btn btn-info uppage" value="수정" onclick=""/>
+    <input type="button" class="btn btn-info delete" value="삭제" onclick=""/>
+    <input type="button" class="btn btn-info reply" value="답변" onclick=""/>
 
     <p>
     <form name="frm" id="frm">
