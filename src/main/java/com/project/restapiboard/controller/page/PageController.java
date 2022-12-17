@@ -41,7 +41,10 @@ public class PageController {
     @RequestMapping("/board/{typeNo}")
     public String boardList(@PathVariable long typeNo, Model model) {
         log.info("/board/{typeNo}");
+        int page = 0;
+
         model.addAttribute("typeNo", typeNo);
+        model.addAttribute("page", page);
         return "boardlist";
     }
 

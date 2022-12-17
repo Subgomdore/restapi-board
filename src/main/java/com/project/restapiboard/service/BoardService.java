@@ -2,6 +2,7 @@ package com.project.restapiboard.service;
 
 import com.project.restapiboard.dto.request.RequestBoardDto;
 import com.project.restapiboard.dto.response.ResBoardeListDto;
+import com.project.restapiboard.dto.response.ResPagingDto;
 import com.project.restapiboard.dto.response.ResponseBoardDto;
 import com.project.restapiboard.entity.Board;
 import com.project.restapiboard.entity.Type;
@@ -33,8 +34,19 @@ public class BoardService {
     @Autowired
     UserRepository userRepository;
 
+    /*게시물 페이징*/
+    public ResPagingDto getPagingValue(Type type) {
+
+        PageRequest pageRequest = PageRequest.of(0,3,Sort.by(Sort.Direction.DESC,"boardNo"));
+        Page<Board> boardPage = boardRepository.findByType(type, pageRequest);
+        ResPagingDto resPagingDto = new ResPagingDto();
+        resPagingDto.setTotalPages(boardPage.getTotalPages());
+        resPagingDto.setTotalElements(boardPage.getTotalElements());
+        return resPagingDto;
+    }
+
     /*게시물 리스트*/
-    public List<ResBoardeListDto> getBoardList(Type type) {
+    public List<ResBoardeListDto> getBoardList(Type type, int page) {
         /** typeNo 단일 매개변수로 받았을경우 조회 */
         /** 페이징 작업없이 전체 리스트를 모두 불러오는 기능이고, FK를 활용한 단일조회 문법이다 */
 
@@ -42,11 +54,14 @@ public class BoardService {
          * List<Board> boardList = boardRepository.findByType_TypeNo(type); */
 
         /** JPA는 객체로 조회가 가능하다. 이 기능은 절대 잊지말고 기억하기 */
-        PageRequest pageRequest = PageRequest.of(0,3,Sort.by(Sort.Direction.DESC,"boardNo"));
-        Page<Board> page = boardRepository.findByType(type, pageRequest);
-        List<Board> boardList = page.getContent();
-        System.out.println(boardList.size());
+        PageRequest pageRequest = PageRequest.of(page,3,Sort.by(Sort.Direction.DESC,"boardNo"));
+        Page<Board> boardPage = boardRepository.findByType(type, pageRequest);
+        List<Board> boardList = boardPage.getContent();
 
+        int totalPages = boardPage.getTotalPages();
+        System.out.println("totalPages = " + totalPages);
+        long totalElements = boardPage.getTotalElements();
+        System.out.println("totalElements = " + totalElements);
 
         for (int i = 0; i < boardList.size(); i++) {
             log.info("boardSubject: {}", boardList.get(i).getBoardSubject());
@@ -60,6 +75,7 @@ public class BoardService {
         }
         return resBoardeListDtos;
     }
+
 
     /*게시글 상세내용 확인보기*/
     public ResponseBoardDto getBoardContent(long boardNo) {
@@ -101,4 +117,6 @@ public class BoardService {
         Board board = boardDto.toEntity();
         boardRepository.delete(board);
     }
+
+
 }
