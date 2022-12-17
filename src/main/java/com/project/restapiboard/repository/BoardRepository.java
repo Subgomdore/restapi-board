@@ -1,7 +1,10 @@
 package com.project.restapiboard.repository;
 
 import com.project.restapiboard.entity.Board;
+import com.project.restapiboard.entity.Type;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,13 +15,18 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    List<Board> findByType_TypeNo(long typeNo);
+    /**
+     * CheckNumber = '1'
+     List<Board> findByType_TypeNo(Type type);
+     */
+    Page<Board> findByType(Type type , Pageable pageable); //? 이게 왜되는거지? 객체로 조회가능하네?
 
-    @Transactional
-    // @Transactional이 붙은 메서드는 메서드가 포함하고 있는 작업 중에 하나라도 실패할 경우 전체 작업을 취소한다.
+
+
+    /*조회수 증가가*/
+   @Transactional /** @Transactional이 포함하고 있는 작업 중에 하나라도 실패할 경우 전체 작업을 취소*/
     @Modifying
     @Query("update Board b set b.boardCount = b.boardCount + 1 where b.boardNo = :boardNo")
     void updateCount(long boardNo);
 
-    Page<Board> findByBoardNo(long typeNo);
 }
