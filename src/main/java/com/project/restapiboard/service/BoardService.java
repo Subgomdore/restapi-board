@@ -71,25 +71,16 @@ public class BoardService {
     }
 
     /*조회수 증가*/
-    public void countContent(long boardNo) {
+    public void updateCount(long boardNo) {
         boardRepository.updateCount(boardNo);
     }
 
-    /*게시글 수정*/
-    public void updateContent(RequestBoardDto boardDto) {
-        Optional<Board> board = boardRepository.findById(boardDto.getBoardNo());
-        boardDto.setUser(board.get().getUser());
-        boardDto.setType(board.get().getType());
-        Board boardEntity = boardDto.toEntity();
-//        boardRepository.save(boardEntity);
 
-
-
-    }
-
-    /*게시글 삭제*/
-    public void deleteContent(RequestBoardDto boardDto) {
+    public void updateContent(RequestBoardDto boardDto, long boardNo) {
+        // boardNo 값 DTO Builder 처리해야함
         Board board = boardDto.toEntity();
-        boardRepository.delete(board);
+        boardRepository.save(board);
+
     }
+
 }

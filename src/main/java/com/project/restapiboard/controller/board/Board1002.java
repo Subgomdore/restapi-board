@@ -34,7 +34,7 @@ public class Board1002 {
         log.error("*** count ***");
         log.info(Long.toString(typeNo));
         log.info(Long.toString(boardNo));
-        boardService.contentCount(boardNo);
+        boardService.updateCount(boardNo);
     }
 
 
