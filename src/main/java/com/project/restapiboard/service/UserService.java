@@ -2,20 +2,27 @@ package com.project.restapiboard.service;
 
 import com.project.restapiboard.entity.User;
 import com.project.restapiboard.repository.UserRepository;
+import com.project.restapiboard.repository.UserRepositoryImpl;
+import com.project.restapiboard.request.PagingClass;
+import com.project.restapiboard.respoonse.UserResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+//    private final UserRepository userRepository;
 
     public List<User> getMemberList(){
         return userRepository.findAll();
@@ -36,6 +43,12 @@ public class UserService {
 
     public User nickCheck(String nickName) {
         return userRepository.findByNickName(nickName);
+    }
+
+    public List<UserResponse> getAllUser(PagingClass pagingClass){
+        return userRepository.getAllUser(pagingClass).stream()
+                .map(UserResponse::new)
+                .collect(Collectors.toList());
     }
 
 }
