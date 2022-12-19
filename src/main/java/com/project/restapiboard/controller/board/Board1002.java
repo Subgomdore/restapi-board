@@ -4,17 +4,14 @@ import com.project.restapiboard.dto.request.RequestBoardDto;
 import com.project.restapiboard.dto.response.ResBoardeListDto;
 import com.project.restapiboard.dto.response.ResPagingDto;
 import com.project.restapiboard.dto.response.ResponseBoardDto;
-import com.project.restapiboard.entity.Board;
 import com.project.restapiboard.entity.Type;
 import com.project.restapiboard.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 // 황인성
@@ -42,7 +39,7 @@ public class Board1002 {
 
     /*게시판 페이징*/
     @PostMapping("/{typeNo}/PN")
-    public ResPagingDto getPagingValue(@RequestBody Type type){
+    public ResPagingDto getPagingValue(@RequestBody Type type) {
         ResPagingDto resPagingDto = boardService.getPagingValue(type);
         return resPagingDto;
     }
