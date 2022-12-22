@@ -10,17 +10,19 @@
 
 <script>
     $(document).ready(function () {
+        const page_number = 1;
 
         console.log('load완료');
         $.ajax({
             url: '/board/list',
             type: 'GET',
+
             success: function (data) {
                 str = '<TR align="center">';
                 $.each(data, function (i) {
                     console.log(i)
                     str += '<TD align="center" id="bno'+i+'"> ' + data[i].typeNo + '</TD>' +
-                        '<TD align="center" id="bname'+i+'"> <a href="board/'+ data[i].typeNo +'">'+data[i].typeName+'</a></TD>';
+                        '<TD align="center" id="bname'+i+'"> <a href="/board/'+ data[i].typeNo +'/page/'+page_number+'">'+data[i].typeName+'</a></TD>';
                     str += '</TR>';
                 });
                 $('.table_body').append(str);
@@ -53,7 +55,6 @@
                 console.log('에러');
             }
         });
-
     }
 
 </script>

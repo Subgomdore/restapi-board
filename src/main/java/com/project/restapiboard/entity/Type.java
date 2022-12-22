@@ -34,7 +34,8 @@ public class Type {
     private List<Board> board = new ArrayList<>();
 
     @Builder
-    public Type(String typeName) {
+    public Type(long typeNo, String typeName) {
+        this.typeNo = typeNo;
         this.typeName = typeName;
     }
 

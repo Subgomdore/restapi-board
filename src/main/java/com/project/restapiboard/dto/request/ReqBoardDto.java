@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RequestBoardDto {
+public class ReqBoardDto {
 
     private long boardNo;
     private String boardSubject;

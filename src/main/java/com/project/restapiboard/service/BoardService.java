@@ -1,9 +1,8 @@
 package com.project.restapiboard.service;
 
-import com.project.restapiboard.dto.request.RequestBoardDto;
-import com.project.restapiboard.dto.response.ResBoardeListDto;
+import com.project.restapiboard.dto.request.ReqBoardDto;
 import com.project.restapiboard.dto.response.ResPagingDto;
-import com.project.restapiboard.dto.response.ResponseBoardDto;
+import com.project.restapiboard.dto.response.ResBoardDto;
 import com.project.restapiboard.entity.Board;
 import com.project.restapiboard.entity.Type;
 import com.project.restapiboard.entity.User;
@@ -34,19 +33,8 @@ public class BoardService {
     @Autowired
     UserRepository userRepository;
 
-    /*게시물 페이징*/
-    public ResPagingDto getPagingValue(Type type) {
-
-        PageRequest pageRequest = PageRequest.of(0,3,Sort.by(Sort.Direction.DESC,"boardNo"));
-        Page<Board> boardPage = boardRepository.findByType(type, pageRequest);
-        ResPagingDto resPagingDto = new ResPagingDto();
-        resPagingDto.setTotalPages(boardPage.getTotalPages());
-        resPagingDto.setTotalElements(boardPage.getTotalElements());
-        return resPagingDto;
-    }
-
     /*게시물 리스트*/
-    public List<ResBoardeListDto> getBoardList(Type type, int page) {
+    public List<ResBoardDto> getBoardList(Type type, int page) {
         /** typeNo 단일 매개변수로 받았을경우 조회 */
         /** 페이징 작업없이 전체 리스트를 모두 불러오는 기능이고, FK를 활용한 단일조회 문법이다 */
 
@@ -68,27 +56,28 @@ public class BoardService {
         }
 
         // id랑 typeno를 가진 dto 리스트 생성
-        List<ResBoardeListDto> resBoardeListDtos = new ArrayList<>();
+        List<ResBoardDto> boardDtoList = new ArrayList<>();
+
         for (int i = 0; i < boardList.size(); i++) {
-            ResBoardeListDto resBoardeListDto = new ResBoardeListDto(boardList.get(i));
-            resBoardeListDtos.add(resBoardeListDto);
+            ResBoardDto boardDto = new ResBoardDto(boardList.get(i));
+            boardDtoList.add(boardDto);
         }
-        return resBoardeListDtos;
+        return boardDtoList;
     }
 
 
     /*게시글 상세내용 확인보기*/
-    public ResponseBoardDto getBoardContent(long boardNo) {
+    public ResBoardDto getBoardContent(long boardNo) {
         Optional<Board> board = boardRepository.findById(boardNo);
         if (!board.isPresent()) {
             return null;
         }
-        ResponseBoardDto boardDto = new ResponseBoardDto(board.get());
+        ResBoardDto boardDto = new ResBoardDto(board.get());
         return boardDto;
     }
 
     /*게시글 작성*/
-    public void addContent(RequestBoardDto boardDto) {
+    public void addContent(ReqBoardDto boardDto) {
 
         Optional<Type> type = typeRepository.findById(boardDto.getTypeNo()); // Type Entity
         Optional<User> user = userRepository.findById(boardDto.getUserId()); // User Etnity
@@ -106,14 +95,14 @@ public class BoardService {
     }
 
     /*게시글 업데이트. 아직 미완성*/
-    public void updateContent(RequestBoardDto boardDto, long boardNo) {
+    public void updateContent(ReqBoardDto boardDto, long boardNo) {
         // boardNo 값 DTO Builder 처리해야함
         Board board = boardDto.toEntity();
         boardRepository.save(board);
     }
 
     /*게시글 삭제*/
-    public void deleteContent(RequestBoardDto boardDto) {
+    public void deleteContent(ReqBoardDto boardDto) {
         Board board = boardDto.toEntity();
         boardRepository.delete(board);
     }

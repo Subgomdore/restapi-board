@@ -15,13 +15,7 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    /**
-     * CheckNumber = '1'
-     List<Board> findByType_TypeNo(Type type);
-     */
     Page<Board> findByType(Type type , Pageable pageable); //? 이게 왜되는거지? 객체로 조회가능하네?
-
-
 
     /*조회수 증가가*/
    @Transactional /** @Transactional이 포함하고 있는 작업 중에 하나라도 실패할 경우 전체 작업을 취소*/

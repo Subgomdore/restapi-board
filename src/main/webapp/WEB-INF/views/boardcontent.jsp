@@ -11,6 +11,8 @@
     <script>
         $(document).ready(function () {
 
+            const page_number = 1;
+
             console.log('boardcontent function test');
             const typeNo = ${typeNo};
             const boardNo = ${boardNo};
@@ -38,7 +40,7 @@
 
             /* 목록버튼 기능 (해당타입의 게시판리스트로) */
             $('.bfoPage').click(function(){
-                location.href='/board/'+typeNo;
+                location.href='/board/'+typeNo+'/page/'+page_number;
             })
 
             $('.uppage').click(function(){

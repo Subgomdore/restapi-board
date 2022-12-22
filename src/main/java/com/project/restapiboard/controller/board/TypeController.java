@@ -1,7 +1,7 @@
 package com.project.restapiboard.controller.board;
 
-import com.project.restapiboard.dto.request.RequestTypeDto;
-import com.project.restapiboard.dto.response.ResponseTypeDto;
+import com.project.restapiboard.dto.request.ReqTypeDto;
+import com.project.restapiboard.dto.response.ResTypeDto;
 import com.project.restapiboard.service.TypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,14 @@ public class TypeController {
 
     /*게시판타입 추가*/
     @PostMapping("/boardtype-add")
-    public void boardTypeAdd(@RequestBody RequestTypeDto requestTypeDto) {
+    public void boardTypeAdd(@RequestBody ReqTypeDto reqTypeDto) {
         log.info("========== /boardtype-add ==========");
-        typeService.boardTypeAdd(requestTypeDto);
+        typeService.boardTypeAdd(reqTypeDto);
     }
 
     /*게시판리스트*/
     @GetMapping("/list")
-    public List<ResponseTypeDto> BoardTypeList() {
+    public List<ResTypeDto> BoardTypeList() {
         log.info("========== /board/list호출 ==========");
 
         return typeService.boardTypeList();

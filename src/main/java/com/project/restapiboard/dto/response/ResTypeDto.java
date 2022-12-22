@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ResponseTypeDto {
+public class ResTypeDto {
     private long typeNo;
     private String typeName;
 
-    public ResponseTypeDto(Type type) {
+    public ResTypeDto(Type type) {
         this.typeNo = type.getTypeNo();
         this.typeName = type.getTypeName();
     }

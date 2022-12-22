@@ -8,7 +8,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class ResponseBoardDto {
+public class ResBoardDto {
     private long boardNo;
     private String boardSubject;
     private String boardContent;
@@ -24,7 +24,7 @@ public class ResponseBoardDto {
     private String userId;
     private long typeNo;
 
-    public ResponseBoardDto(Board board) {
+    public ResBoardDto(Board board) {
         this.boardNo = board.getBoardNo();
         this.boardSubject = board.getBoardSubject();
         this.boardContent = board.getBoardContent();

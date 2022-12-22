@@ -38,8 +38,9 @@
 
             }),
             success: function (data) {
-                alert("성공");
-                location.href='/board/'+typeNo;
+                console.log("글쓰기성공")
+                // alert("성공");
+                // location.href='/board/'+typeNo;
             },
             error: function (data) {
                 alert("실패");

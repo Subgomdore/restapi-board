@@ -1,20 +1,18 @@
-package com.project.restapiboard.dto.response;
+package com.project.restapiboard.dto.request;
 
-import com.project.restapiboard.entity.Board;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ResPagingDto {
+public class ReqPagingDto {
 
     private long typeNo;
     private long totalPages;
     private long totalElements;
     private int startPage;
     private int endPage;
-
-
+    private int page;
+    private int pageSize;
 
 }
-

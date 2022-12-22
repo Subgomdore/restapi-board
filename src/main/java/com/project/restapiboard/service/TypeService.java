@@ -1,8 +1,8 @@
 package com.project.restapiboard.service;
 
 
-import com.project.restapiboard.dto.request.RequestTypeDto;
-import com.project.restapiboard.dto.response.ResponseTypeDto;
+import com.project.restapiboard.dto.request.ReqTypeDto;
+import com.project.restapiboard.dto.response.ResTypeDto;
 import com.project.restapiboard.entity.Type;
 import com.project.restapiboard.repository.TypeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -19,20 +19,20 @@ public class TypeService {
     @Autowired
     TypeRepository typeRepository;
 
-    public void boardTypeAdd(RequestTypeDto requestTypeDto) {
-        Type type = requestTypeDto.toEntity();
+    public void boardTypeAdd(ReqTypeDto reqTypeDto) {
+        Type type = reqTypeDto.toEntity();
         typeRepository.save(type);
     }
 
-    public List<ResponseTypeDto> boardTypeList() {
+    public List<ResTypeDto> boardTypeList() {
         List<Type> typeList = typeRepository.findAll(); // Entity list 찾고
-        List<ResponseTypeDto> responseTypeDtoList = new ArrayList<>(); // DTO list 만들고
+        List<ResTypeDto> resTypeDtoList = new ArrayList<>(); // DTO list 만들고
 
         for(Type type : typeList) {
-            ResponseTypeDto responseTypeDto = new ResponseTypeDto(type); // response 객체를 생성하면서, Entity를 매개변수로 넣음 : Entity -> Dto 변환
-            responseTypeDtoList.add(responseTypeDto);
+            ResTypeDto resTypeDto = new ResTypeDto(type); // response 객체를 생성하면서, Entity를 매개변수로 넣음 : Entity -> Dto 변환
+            resTypeDtoList.add(resTypeDto);
         }
-        return responseTypeDtoList;
+        return resTypeDtoList;
     }
 
 

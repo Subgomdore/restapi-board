@@ -11,50 +11,28 @@
 <script>
     $(document).ready(function () {
         const typeNo = '${typeNo}';
-        const page = ${page};
-
-        /*게시판 페이징과 토탈카운트 조회*/
-        $.ajax({
-            url: '/board/' + typeNo + '/PN',
-            type: 'POST',
-            data_type: "json",
-            contentType: 'application/json',
-            data: JSON.stringify({
-                typeNo: typeNo
-            }),
-            success: function (data){
-                $('#totalPages').val(data.totalPages)
-                console.log('-------------')
-                console.log(data.totalPages);
-                console.log(data.totalElements);
-                console.log('-------------')
-            },
-            error: function (){
-                console.log('페이징조회 실패');
-            }
-        })
+        const page = ${page}
 
 
         /*게시판 리스트*/
         console.log('boardlist/{boardtypeNo}의 function 실행완료');
         console.log(typeNo);
-        console.log("page"+page);
         $.ajax({
-            url: '/board/' + typeNo + '/list',
+            url: '/board/' + typeNo + '/list/' + page,
             type: 'POST',
             data_type: "json",
             contentType: 'application/json',
-            data: JSON.stringify({
-                typeNo: typeNo,
-                page: page
-            }),
+            data: JSON.stringify({}),
             success: function (data) {
                 str = '<TR align="center">';
                 $.each(data, function (i) {
                     console.log(i)
                     str += '<TD align="center" id="bno' + i + '">' + data[i].typeNo + '</TD>' +
-                        // '<TD align="center" id="bsubject'+i+'"> <a class="btn btn-default" onclick="upCount('+data[i].boardNo+','+data[i].typeNo+')" >'+data[i].boardSubject+'</a></TD>' +
-                        '<TD align="center" id="bsubject' + i + '"> <a class="btn btn-default" onclick="upCount(' + data[i].boardNo + ',' + data[i].typeNo + ')" href="${typeNo}/' + data[i].boardNo + '">' + data[i].boardSubject + '</a></TD>' +
+                        '<TD align="center" id="bsubject' + i + '"> ' +
+
+                        '<a class="btn btn-default" onclick="upCount(' + data[i].boardNo + ',' + data[i].typeNo + ')" ' +
+                        'href="/board/${typeNo}/content/' + data[i].boardNo + '">' + data[i].boardSubject + '</a></TD>' +
+
                         '<TD align="center" id="buserId' + i + '">' + data[i].userId + '</TD>' +
                         '<TD align="center" id="bcreate' + i + '">' + data[i].boardCreate + '</TD>' +
                         '<TD align="center" id="bcount' + i + '">' + data[i].boardCount + '</TD>' +
@@ -67,8 +45,6 @@
                 console.log('에러');
             }
         });
-
-
     })
 </script>
 <%-- 조회수 증가 Function --%>
@@ -97,15 +73,17 @@
         })
     }
 
+
 </script>
 <body>
-접속중인아이디: ${sessionid} <br>
-Page의 원소 값: ${page} <br>
-<c:set var="viewpage" value="${page+1}" />
-ViewPage 페이징 값: ${viewpage} <br>
-totalPages 페이징 값: <input type="text" id="totalPages" name="totalPages" readonly="readonly" style="outline: none; border: 0;"> <br>
-pageSize 페이징 값: ${pageSize} <br>
-
+접속중인아이디: ${sessionid} ||
+totalElements:${totalElements} ||
+totalPages:${totalPages} ||
+startPage:${startPage} ||
+endPage:${endPage} ||
+page: ${page} ||
+paging: ${page+1} ||
+<c:set var="paging" value="${page+1}"/>
 <div class="container" align="center">
     <h2 class="text-primary">게시판 목록</h2>
     <table class="table table-striped">
@@ -122,7 +100,7 @@ pageSize 페이징 값: ${pageSize} <br>
     </table>
 
 
-    <form<%-- action="${path}/list/pageNum/1"--%>>
+    <form>
         <select name="search">
             <option value="subject"
                     <c:if test="${search=='subject'}">selected="selected" </c:if>>제목
@@ -142,53 +120,67 @@ pageSize 페이징 값: ${pageSize} <br>
     </form>
 
     <ul class="pagination">
-<%--        <c:if test="${not empty keyword}">--%>
+        <%--        <c:if test="${not empty keyword}">--%>
 
-<%--            <c:if test="${pp.startPage > pp.pagePerBlk }">--%>
-<%--                <li><a href="${path }/list/pageNum/${pp.startPage - 1}?search=${search}&keyword=${keyword}">이전</a></li>--%>
-<%--            </c:if>--%>
+        <%--            <c:if test="${pp.startPage > pp.pagePerBlk }">--%>
+        <%--                <li><a href="${path }/list/pageNum/${pp.startPage - 1}?search=${search}&keyword=${keyword}">이전</a></li>--%>
+        <%--            </c:if>--%>
 
-<%--            <c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">--%>
-<%--                <li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a--%>
-<%--                        href="${path }/list/pageNum/${i}?search=${search}&keyword=${keyword}">${i}</a></li>--%>
-<%--            </c:forEach>--%>
+        <%--            <c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">--%>
+        <%--                <li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a--%>
+        <%--                        href="${path }/list/pageNum/${i}?search=${search}&keyword=${keyword}">${i}</a></li>--%>
+        <%--            </c:forEach>--%>
 
-<%--            <c:if test="${pp.endPage < pp.totalPage}">--%>
-<%--                <li><a href="${path }/list/pageNum/${pp.endPage + 1}?search=${search}&keyword=${keyword}">다음</a></li>--%>
-<%--            </c:if>--%>
+        <%--            <c:if test="${pp.endPage < pp.totalPage}">--%>
+        <%--                <li><a href="${path }/list/pageNum/${pp.endPage + 1}?search=${search}&keyword=${keyword}">다음</a></li>--%>
+        <%--            </c:if>--%>
 
-<%--        </c:if>--%>
+        <%--        </c:if>--%>
 
+
+        <tbody class="body_paging">
+
+        </tbody>
         <%--검색된내용이 없을경우--%>
-        <c:if test="${empty keyword}">
-            <c:if test="${viewpage <=1 }">
-                <li><a>이전</a></li>
-            </c:if>
 
-            <c:if test="${viewpage > 1 }">
-                <li><a onClick="Before(${viewpage},${product_num })">이전</a></li>
-            </c:if>
-
-            <c:forEach var="a" begin="${startpage}" end="${endpage}">
-                <c:if test="${a == viewpage }">
-                    <li><a>${a}</a></li>
-                </c:if>
-                <c:if test="${a != viewpage }">
-                    <li><a onClick="SelPage(${a},${product_num })">${a}</a></li>
-                </c:if>
-            </c:forEach>
-
-            <c:if test="${viewpage >= maxpage }">
-                <li><a>다음</a></li>
-            </c:if>
-            <c:if test="${viewpage < maxpage }">
-                <li><a onClick="Next(${viewpage},${product_num })">다음</a></li>
-            </c:if>
+        <%--        <c:if test="${empty keyword}">--%>
+        <%--조건만족시 a태그 링크위치 없음--%>
+        <c:if test="${paging <=1 }">
+            <li><a>이전</a></li>
         </c:if>
+
+        <%--1페이지를 초과한 값이 셀렉션된경우--%>
+        <c:if test="${paging > 1 }">
+            <li><a onClick="Before()">이전</a></li>
+        </c:if>
+
+        <%--페이징 버튼--%>
+        <c:forEach var="now" begin="${startPage}" end="${endPage}">
+            <%--값이 같을 경우 링크없음--%>
+            <c:if test="${now == paging }">
+                <li><a>${now}</a></li>
+            </c:if>
+            <%--값이 다를 경우--%>
+            <c:if test="${now != paging }">
+                <li><a onclick="location.href='/board/' + ${typeNo} + '/page/' + ${now} "> ${now}</a></li>
+            </c:if>
+        </c:forEach>
+
+        <c:if test="${page >= endPage }">
+            <li><a>다음</a></li>
+        </c:if>
+        <c:if test="${page < endPage }">
+            <li><a onClick="Next()">다음</a></li>
+        </c:if>
+        <%--        </c:if>--%>
     </ul>
     <div align="center">
         <input type="button" value="글쓰기" class="btn btn-info" onclick="location.href=${typeNo} + '/boardwrite'">
     </div>
 </div>
+
+
+<body>
+</body>
 </body>
 </html>
