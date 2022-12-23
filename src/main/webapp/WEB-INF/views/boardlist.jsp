@@ -10,8 +10,10 @@
 
 <script>
     $(document).ready(function () {
-        const typeNo = '${typeNo}';
-        const page = ${page}
+
+
+        const typeNo = $("#typeNo").val();
+        const page = ${page};
 
 
         /*게시판 리스트*/
@@ -25,13 +27,18 @@
             data: JSON.stringify({}),
             success: function (data) {
                 str = '<TR align="center">';
+
+                let list = data.list;
+                let paging = data.paging;
+
                 $.each(data, function (i) {
                     console.log(i)
-                    str += '<TD align="center" id="bno' + i + '">' + data[i].typeNo + '</TD>' +
+                    str +=
+                        '<TD align="center" id="bno' + i + '">' + data[i].typeNo + '</TD>' +
                         '<TD align="center" id="bsubject' + i + '"> ' +
 
                         '<a class="btn btn-default" onclick="upCount(' + data[i].boardNo + ',' + data[i].typeNo + ')" ' +
-                        'href="/board/${typeNo}/content/' + data[i].boardNo + '">' + data[i].boardSubject + '</a></TD>' +
+                        'href="/board/'+typeNo+'/content/' + data[i].boardNo + '">' + data[i].boardSubject + '</a></TD>' +
 
                         '<TD align="center" id="buserId' + i + '">' + data[i].userId + '</TD>' +
                         '<TD align="center" id="bcreate' + i + '">' + data[i].boardCreate + '</TD>' +
@@ -39,6 +46,9 @@
                         '<input type="hidden" id="bno+' + i + '" value="' + data[i].boardNo + '">';
                     str += '</TR>';
                 });
+                $('.table_body').append('<TD align="center" id="bno' + i + '">' + data[i].typeNo + '</TD>');
+                $('.table_body').append('<TD align="center" id="bsubject' + i + '"> ');
+                $('.table_body').append(str);
                 $('.table_body').append(str);
             },
             error: function () {
@@ -84,6 +94,15 @@ endPage:${endPage} ||
 page: ${page} ||
 paging: ${page+1} ||
 <c:set var="paging" value="${page+1}"/>
+
+<input type="hidden" name="typeNo" id="typeNo" value="${typeNo}" />
+<input type="hidden" value="${sessionid}" />
+<input type="hidden" value="${sessionid}" />
+<input type="hidden" value="${sessionid}" />
+<input type="hidden" value="${sessionid}" />
+<input type="hidden" value="${sessionid}" />
+<input type="hidden" value="${sessionid}" />
+
 <div class="container" align="center">
     <h2 class="text-primary">게시판 목록</h2>
     <table class="table table-striped">

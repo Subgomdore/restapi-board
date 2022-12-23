@@ -1,6 +1,7 @@
 package com.project.restapiboard.controller.board;
 
 import com.project.restapiboard.dto.request.ReqBoardDto;
+import com.project.restapiboard.dto.response.ResBoardWrapperDto;
 import com.project.restapiboard.dto.response.ResPagingDto;
 import com.project.restapiboard.dto.response.ResBoardDto;
 import com.project.restapiboard.entity.Type;
@@ -25,9 +26,14 @@ public class Board1002 {
 
     /*특정게시판안의 리스트 불러오기*/
     @PostMapping("/{typeNo}/list/{page}")
-    public List<ResBoardDto> getBoardList(@PathVariable long typeNo, @PathVariable int page, Type type, Model model) {
-        List<ResBoardDto> resList = boardService.getBoardList(type, page);
-        return resList;
+    public ResBoardWrapperDto getBoardList(@PathVariable long typeNo, @PathVariable int page, Type type, Model model) {
+        ResBoardWrapperDto res = new ResBoardWrapperDto();
+                res.setList(boardService.getBoardList(type, page));
+                res.setPaging();
+
+
+
+        return res;
     }
 
 
