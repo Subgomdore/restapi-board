@@ -19,6 +19,7 @@
         <!-- Properties  -->
         <slf4j.version>1.7.25</slf4j.version>
         <log4j.version>2.11.0</log4j.version>
+        <start-class>com.project.restapiboard.RestapiBoardApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -58,11 +59,13 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <!--war 톰캣 설정-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

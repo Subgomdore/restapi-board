@@ -9,6 +9,7 @@
 <body>
 
 <script>
+    alert()
     location.href = "login";
 </script>
 

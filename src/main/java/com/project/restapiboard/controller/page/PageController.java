@@ -21,7 +21,7 @@ public class PageController {
     @Autowired
     PageService pageService;
 
-    /*localhost:80 디폴트 맵핑경로*/
+    /*디폴트 맵핑경로*/
     @RequestMapping("/")
     public String loginForm() {
         log.info("/");
