@@ -11,10 +11,8 @@
 <script>
     $(document).ready(function () {
 
-
         const typeNo = $("#typeNo").val();
         const page = ${page};
-
 
         /*게시판 리스트*/
         console.log('boardlist/{boardtypeNo}의 function 실행완료');
@@ -22,9 +20,11 @@
         $.ajax({
             url: '/board/' + typeNo + '/list/' + page,
             type: 'POST',
-            data_type: "json",
-            contentType: 'application/json',
-            data: JSON.stringify({}),
+            // data_type: "json",
+            // contentType: 'application/json',
+            data: {
+                typeNo:typeNo
+            },
             success: function (data) {
 
                 let list = data.list;
@@ -109,11 +109,7 @@ paging: ${page+1} ||
 
 <input type="hidden" name="typeNo" id="typeNo" value="${typeNo}" />
 <input type="hidden" value="${sessionid}" />
-<input type="hidden" value="${sessionid}" />
-<input type="hidden" value="${sessionid}" />
-<input type="hidden" value="${sessionid}" />
-<input type="hidden" value="${sessionid}" />
-<input type="hidden" value="${sessionid}" />
+
 
 <div class="container" align="center">
     <h2 class="text-primary">게시판 목록</h2>

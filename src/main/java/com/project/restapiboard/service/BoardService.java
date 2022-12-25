@@ -1,6 +1,8 @@
 package com.project.restapiboard.service;
 
 import com.project.restapiboard.dto.request.ReqBoardDto;
+import com.project.restapiboard.dto.request.ReqPagingDto;
+import com.project.restapiboard.dto.request.ReqTypeDto;
 import com.project.restapiboard.dto.response.ResPagingDto;
 import com.project.restapiboard.dto.response.ResBoardDto;
 import com.project.restapiboard.entity.Board;
@@ -35,7 +37,7 @@ public class BoardService {
     UserRepository userRepository;
 
     /*게시물 리스트*/
-    public List<ResBoardDto> getBoardList(Type type, int page) {
+    public List<ResBoardDto> getBoardList(ReqPagingDto reqPagingDto, int page) {
         /** typeNo 단일 매개변수로 받았을경우 조회 */
         /** 페이징 작업없이 전체 리스트를 모두 불러오는 기능이고, FK를 활용한 단일조회 문법이다 */
 
@@ -44,19 +46,10 @@ public class BoardService {
 
         /** JPA는 객체로 조회가 가능하다. 이 기능은 절대 잊지말고 기억하기 */
         PageRequest pageRequest = PageRequest.of(page,3,Sort.by(Sort.Direction.DESC,"boardNo"));
+        Type type = Type.builder().typeNo(reqPagingDto.getTypeNo()).build();
         Page<Board> boardPage = boardRepository.findByType(type, pageRequest);
         List<Board> boardList = boardPage.getContent();
 
-        int totalPages = boardPage.getTotalPages();
-        System.out.println("totalPages = " + totalPages);
-        long totalElements = boardPage.getTotalElements();
-        System.out.println("totalElements = " + totalElements);
-
-        for (int i = 0; i < boardList.size(); i++) {
-            log.info("boardSubject: {}", boardList.get(i).getBoardSubject());
-        }
-
-        // id랑 typeno를 가진 dto 리스트 생성
         List<ResBoardDto> boardDtoList = new ArrayList<>();
 
         for (int i = 0; i < boardList.size(); i++) {

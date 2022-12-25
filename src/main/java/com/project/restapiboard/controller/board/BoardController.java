@@ -1,6 +1,8 @@
 package com.project.restapiboard.controller.board;
 
 import com.project.restapiboard.dto.request.ReqBoardDto;
+import com.project.restapiboard.dto.request.ReqPagingDto;
+import com.project.restapiboard.dto.request.ReqTypeDto;
 import com.project.restapiboard.dto.response.ResBoardWrapperDto;
 import com.project.restapiboard.dto.response.ResPagingDto;
 import com.project.restapiboard.dto.response.ResBoardDto;
@@ -26,20 +28,20 @@ public class BoardController {
 
     /*특정게시판안의 리스트 불러오기*/
     @PostMapping("/{typeNo}/list/{page}")
-    public ResBoardWrapperDto getBoardList(@PathVariable long typeNo, @PathVariable int page, Type type) {
+    public ResBoardWrapperDto getBoardList(@PathVariable long typeNo, @PathVariable int page,
+                                           ReqPagingDto pagingDto) {
         ResBoardWrapperDto res = new ResBoardWrapperDto();
-        res.setList(boardService.getBoardList(type, page));
-//        res.setPaging(); 사용자 정의 페이징값을 받을때 활용할예정.
+
+        res.setList(boardService.getBoardList(pagingDto, page));
+//        res.setPaging();
         return res;
     }
-
 
     /*게시글 조회수 상승*/
     @PutMapping("/{typeNo}/{boardNo}/count")
     public void contentCount(@PathVariable long typeNo, @PathVariable long boardNo) {
         boardService.updateCount(boardNo);
     }
-
 
     /*게시판의 상세내용 불러오기*/
     @PostMapping("/{typeNo}/{boardNo}")
