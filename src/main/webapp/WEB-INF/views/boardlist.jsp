@@ -26,30 +26,42 @@
             contentType: 'application/json',
             data: JSON.stringify({}),
             success: function (data) {
-                str = '<TR align="center">';
 
                 let list = data.list;
                 let paging = data.paging;
 
-                $.each(data, function (i) {
-                    console.log(i)
-                    str +=
-                        '<TD align="center" id="bno' + i + '">' + data[i].typeNo + '</TD>' +
-                        '<TD align="center" id="bsubject' + i + '"> ' +
+                $.each(list, function (i) {
+                    //    방법 1
+                    // str = '<TR align="center">';
+                    //     str +=
+                    //         '<TD align="center" id="bno' + i + '">' + data[i].typeNo + '</TD>' +
+                    //         '<TD align="center" id="bsubject' + i + '"> ' +
+                    //
+                    // '<a class="btn btn-default" onclick="upCount(' + data[i].boardNo + ',' + data[i].typeNo + ')" ' +
+                    // 'href="/board/'+typeNo+'/content/' + data[i].boardNo + '">' + data[i].boardSubject + '</a></TD>' +
+                    //
+                    // '<TD align="center" id="buserId' + i + '">' + data[i].userId + '</TD>' +
+                    // '<TD align="center" id="bcreate' + i + '">' + data[i].boardCreate + '</TD>' +
+                    // '<TD align="center" id="bcount' + i + '">' + data[i].boardCount + '</TD>' +
+                    // '<input type="hidden" id="bno+' + i + '" value="' + data[i].boardNo + '">';
+                    // str += '</TR>';
 
-                        '<a class="btn btn-default" onclick="upCount(' + data[i].boardNo + ',' + data[i].typeNo + ')" ' +
-                        'href="/board/'+typeNo+'/content/' + data[i].boardNo + '">' + data[i].boardSubject + '</a></TD>' +
+                    //    방법2
+                    $('.table_body').append('<TR>');
+                    $('.table_body').append('<TD align="center" id="bno' + i + '">' + list[i].typeNo + '</TD>');
 
-                        '<TD align="center" id="buserId' + i + '">' + data[i].userId + '</TD>' +
-                        '<TD align="center" id="bcreate' + i + '">' + data[i].boardCreate + '</TD>' +
-                        '<TD align="center" id="bcount' + i + '">' + data[i].boardCount + '</TD>' +
-                        '<input type="hidden" id="bno+' + i + '" value="' + data[i].boardNo + '">';
-                    str += '</TR>';
+                    $('.table_body').append('<TD align="center" id="bsubject' + i + '"> ' +
+                        '<a class="btn btn-default" onclick="upCount(' + list[i].boardNo + ',' + list[i].typeNo + ')" ' +
+                        'href="/board/'+typeNo+'/content/' + list[i].boardNo + '">' + list[i].boardSubject + '</a></TD>');
+
+                    $('.table_body').append('<TD align="center" id="buserId' + i + '">' + list[i].userId + '</TD>');
+                    $('.table_body').append('<TD align="center" id="bcreate' + i + '">' + list[i].boardCreate + '</TD>');
+                    $('.table_body').append('<TD align="center" id="bcount' + i + '">' + list[i].boardCount + '</TD>');
+                    $('.table_body').append('<TD align="center" id="buserId' + i + '">' + list[i].userId + '</TD>');
+                    $('.table_body').append('<input type="hidden" id="bno+' + i + '" value="' + list[i].boardNo + '">');
+                    $('.table_body').append('</TD>');
                 });
-                $('.table_body').append('<TD align="center" id="bno' + i + '">' + data[i].typeNo + '</TD>');
-                $('.table_body').append('<TD align="center" id="bsubject' + i + '"> ');
-                $('.table_body').append(str);
-                $('.table_body').append(str);
+
             },
             error: function () {
                 console.log('에러');

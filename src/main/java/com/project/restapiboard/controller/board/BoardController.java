@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/board")
 @Slf4j
-public class Board1002 {
+public class BoardController {
 
     @Autowired
     BoardService boardService;
@@ -29,10 +29,7 @@ public class Board1002 {
     public ResBoardWrapperDto getBoardList(@PathVariable long typeNo, @PathVariable int page, Type type, Model model) {
         ResBoardWrapperDto res = new ResBoardWrapperDto();
                 res.setList(boardService.getBoardList(type, page));
-                res.setPaging();
-
-
-
+//                res.setPaging();
         return res;
     }
 
