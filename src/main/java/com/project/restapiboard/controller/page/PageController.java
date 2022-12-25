@@ -24,21 +24,18 @@ public class PageController {
     /*디폴트 맵핑경로*/
     @RequestMapping("/")
     public String loginForm() {
-        log.info("/");
         return "loginform";
     }
 
     /*회원가입폼 이동*/
     @RequestMapping("/join")
     public String userJoin() {
-        log.info("/join");
         return "joinform";
     }
 
     /*게시판타입목록(일반,자유,거래 등등) 이동*/
     @RequestMapping("/board")
     public String boardTypeList() {
-        log.info("/board");
         return "boardtypelist";
     }
 
@@ -46,7 +43,6 @@ public class PageController {
     @RequestMapping("/board/{typeNo}/page/{page_number}")
     public String boardList(@PathVariable long typeNo, @PathVariable int page_number,
                             ReqPagingDto reqPagingDto, Model model) {
-
         /*Paging 과 관련된 객체들을 ViewPage로 전달*/
         /*해당 페이지에서는 전달받은 Object로 List 재호출*/
         log.info("/board/{typeNo}");
@@ -67,7 +63,7 @@ public class PageController {
             endPage = startPage + offsetSize-1;
         }
 
-
+        // 객체로 넘길예정. Wrapper에 대한 이해때문에 아직 jstl 바로 호출하기위한 편의성으로 임시로 달아둠..
         model.addAttribute("totalPages", paging.getTotalPages());
         model.addAttribute("totalElements", paging.getTotalElements());
         model.addAttribute("startPage", startPage);
@@ -82,7 +78,6 @@ public class PageController {
     /*특정게시판의 글쓰기 페이지이동*/
     @RequestMapping("/board/{typeNo}/boardwrite")
     public String boardWrite(@PathVariable long typeNo, Model model) {
-        log.info("/board/{typeNo}/boardwrite");
         model.addAttribute("typeNo", typeNo);
         return "boardwrite";
     }
@@ -90,7 +85,6 @@ public class PageController {
     /*특정게시판의 상세내용보기 페이지이동*/
     @GetMapping("/board/{typeNo}/content/{boardNo}")
     public String boardContent(@PathVariable long typeNo, @PathVariable long boardNo, Model model) {
-        log.info("/board/{typeNo}/{boardNo}");
         model.addAttribute("typeNo", typeNo);
         model.addAttribute("boardNo", boardNo);
 
@@ -99,7 +93,6 @@ public class PageController {
 
     @GetMapping("/board/{typeNo}/{boardNo}/update")
     public String boadrUpdate(@PathVariable long typeNo, @PathVariable long boardNo, Model model) {
-        log.info("update form");
         model.addAttribute("typeNo", typeNo);
         model.addAttribute("boardNo", boardNo);
         return "boardupdate";

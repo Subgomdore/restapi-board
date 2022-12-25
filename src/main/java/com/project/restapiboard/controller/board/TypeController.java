@@ -20,15 +20,12 @@ public class TypeController {
     /*게시판타입 추가*/
     @PostMapping("/boardtype-add")
     public void boardTypeAdd(@RequestBody ReqTypeDto reqTypeDto) {
-        log.info("========== /boardtype-add ==========");
         typeService.boardTypeAdd(reqTypeDto);
     }
 
     /*게시판리스트*/
     @GetMapping("/list")
     public List<ResTypeDto> BoardTypeList() {
-        log.info("========== /board/list호출 ==========");
-
         return typeService.boardTypeList();
     }
 

@@ -26,10 +26,10 @@ public class BoardController {
 
     /*특정게시판안의 리스트 불러오기*/
     @PostMapping("/{typeNo}/list/{page}")
-    public ResBoardWrapperDto getBoardList(@PathVariable long typeNo, @PathVariable int page, Type type, Model model) {
+    public ResBoardWrapperDto getBoardList(@PathVariable long typeNo, @PathVariable int page, Type type) {
         ResBoardWrapperDto res = new ResBoardWrapperDto();
-                res.setList(boardService.getBoardList(type, page));
-//                res.setPaging();
+        res.setList(boardService.getBoardList(type, page));
+//        res.setPaging(); 사용자 정의 페이징값을 받을때 활용할예정.
         return res;
     }
 

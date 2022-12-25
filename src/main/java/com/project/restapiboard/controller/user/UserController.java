@@ -46,19 +46,14 @@ public class UserController {
     /*로그인: 비밀번호 조회 후 return */
     @PostMapping("/signin")
     public int loginCheck(@RequestBody ReqUserDto reqUserDto, HttpServletRequest request) {
-        System.out.println(reqUserDto.getUserId());
-        System.out.println(reqUserDto.getUserPass());
         int result = -1;
         ResUserDto loginUser = userService.loginCheck(reqUserDto);
 
         if (reqUserDto.getUserPass().equals(loginUser.getUserPass())) { // tru
             result = 1;
-
             /*추후 인터셉터 변경 및 쿠키값으로 수정예정*/
             HttpSession session = request.getSession();
             session.setAttribute("sessionid", reqUserDto.getUserId());
-
-
             return result;
         }
         return result;
