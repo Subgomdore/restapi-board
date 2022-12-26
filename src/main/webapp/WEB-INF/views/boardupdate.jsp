@@ -36,28 +36,26 @@
 
             /* 수정 요청 */
             $('.btnupdate').click(function () {
-                console.log('수정요청 ajax')
-                const frmData = $("form").serialize();  // name 태그값을 가져옴... 주의
-                console.log(frmData)
-
+                const boardSubject = $('#boardSubject').val();
+                const boardContent = $('#boardContent').val();
                 $.ajax({
                     url: '/board/' + typeNo + '/' + boardNo + '/update',
-                    type: 'PUT',
-                    // data_type: 'json',
-                    // contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(
-                        frmData
-                    ),
+                    type: 'POST',
+                    data_type: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        boardSubject:boardSubject,
+                        boardContent:boardContent
+                    }),
                     success: function (data) {
                         alert("성공");
-                        // location.href = '/board/' + typeNo + '/' + boardNo;
+                        location.href = '/board/' + typeNo +'/page/1';
                     },
                     error: function (data) {
                         alert("실패");
                     }
                 })
             })
-
 
         })
 
@@ -82,7 +80,7 @@
             </tr>
             <tr>
                 <td>조회수</td>
-                <td><input type="text" id="boardCount" name="boardCount" readonly="readonly" style="border:0 solid black; outline: none"/></td>
+                <td><input type="text" id="boardCount" name="boardCount" readonly="readonly" style="border:0 solid #000000; outline: none"/></td>
             </tr>
             <tr>
                 <td>작성일</td>
@@ -94,9 +92,8 @@
             </tr>
             <tr>
                 <td>내용</td>
-                <td>
-                    <textarea rows="3" id="boardContent" cols="50" name="boardContent" style="display: block;  resize: none;"></textarea>
-                </td>
+                <td><textarea rows="5" id="boardContent" cols="30" name="boardContent" style="display: block;  resize: none;"></textarea></td>
+<%--                <td><textarea rows="5" id="boardContent" cols="30" name="boardContent" required="required"></textarea></td>--%>
             </tr>
         </table>
     </form>

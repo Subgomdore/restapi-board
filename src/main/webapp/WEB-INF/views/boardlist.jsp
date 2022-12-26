@@ -55,9 +55,8 @@
                         'href="/board/'+typeNo+'/content/' + list[i].boardNo + '">' + list[i].boardSubject + '</a></TD>');
 
                     $('.table_body').append('<TD align="center" id="buserId' + i + '">' + list[i].userId + '</TD>');
-                    $('.table_body').append('<TD align="center" id="bcreate' + i + '">' + list[i].boardCreate + '</TD>');
+                    $('.table_body').append('<TD align="center" id="bcreate' + i + '">' + list[i].boardCreate + '('+list[i].boardRevision+')'+'</TD>');
                     $('.table_body').append('<TD align="center" id="bcount' + i + '">' + list[i].boardCount + '</TD>');
-                    $('.table_body').append('<TD align="center" id="buserId' + i + '">' + list[i].userId + '</TD>');
                     $('.table_body').append('<input type="hidden" id="bno+' + i + '" value="' + list[i].boardNo + '">');
                     $('.table_body').append('</TD>');
                 });
@@ -118,7 +117,7 @@ paging: ${page+1} ||
             <td align="center">번호</td>
             <td align="center">제목</td>
             <td align="center">작성자</td>
-            <td align="center">작성일</td>
+            <td align="center">작성일(수정일)</td>
             <td align="center">조회수</td>
         </tr>
         <tbody class="table_body">

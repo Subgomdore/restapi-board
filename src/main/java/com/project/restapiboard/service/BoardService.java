@@ -89,11 +89,15 @@ public class BoardService {
         boardRepository.updateCount(boardNo);
     }
 
+
     /*게시글 업데이트. 아직 미완성*/
+    @Transactional
     public void updateContent(ReqBoardDto boardDto, long boardNo) {
-        // boardNo 값 DTO Builder 처리해야함
-        Board board = boardDto.toEntity();
-        boardRepository.save(board);
+        Board oldBoard = boardRepository.getReferenceById(boardNo);
+        Board newBoard = Board.builder().boardSubject(boardDto.getBoardSubject())
+                .boardContent(boardDto.getBoardContent()).build();
+        oldBoard.updateBoard(newBoard.getBoardSubject(), newBoard.getBoardContent());
+
     }
 
     /*게시글 삭제*/

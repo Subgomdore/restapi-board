@@ -104,6 +104,11 @@ public class Board {
         this.type = type;
     }
 
+    public void updateBoard(String boardSubject, String boardContent){
+        this.boardSubject = boardSubject;
+        this.boardContent = boardContent;
+    }
+
 
 
 

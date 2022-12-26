@@ -37,12 +37,6 @@ public class BoardController {
         return res;
     }
 
-    /*게시글 조회수 상승*/
-    @PutMapping("/{typeNo}/{boardNo}/count")
-    public void contentCount(@PathVariable long typeNo, @PathVariable long boardNo) {
-        boardService.updateCount(boardNo);
-    }
-
     /*게시판의 상세내용 불러오기*/
     @PostMapping("/{typeNo}/{boardNo}")
     public ResBoardDto getBoardContent(@PathVariable long typeNo, @PathVariable long boardNo) {
@@ -53,6 +47,19 @@ public class BoardController {
     @PostMapping("/{typeNo}/write-add")
     public void addContent(@RequestBody ReqBoardDto boardDto, @PathVariable long typeNo) {
         boardService.addContent(boardDto);
+    }
+
+    /*게시글 조회수 상승*/
+    @PutMapping("/{typeNo}/{boardNo}/count")
+    public void contentCount(@PathVariable long typeNo, @PathVariable long boardNo) {
+        boardService.updateCount(boardNo);
+    }
+
+    /*게시글 수정하기*/
+    @PostMapping("/{typeNo}/{boardNo}/update")
+    public void updateContent(@PathVariable long typeNo, @PathVariable long boardNo,@RequestBody ReqBoardDto boardDto){
+        log.info(boardDto.getBoardContent());
+        boardService.updateContent(boardDto, boardNo);
     }
 
 }
