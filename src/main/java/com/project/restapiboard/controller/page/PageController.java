@@ -42,35 +42,42 @@ public class PageController {
     /*특정게시판안의 리스트 불러오기*/
     @RequestMapping("/board/{typeNo}/page/{page_number}")
     public String boardList(@PathVariable long typeNo, @PathVariable int page_number,
-                            ReqPagingDto reqPagingDto, Model model) {
+                            ReqPagingDto reqPagingDto, HttpServletRequest request, Model model) {
+
         /*Paging 과 관련된 객체들을 ViewPage로 전달*/
         /*해당 페이지에서는 전달받은 Object로 List 재호출*/
-        log.info("/board/{typeNo}");
+        log.info("/*특정게시판안의 리스트 불러오기*/");
 
-        int page = page_number-1;
-        int pageSize = 3;
-        int offsetSize = 5;
+        int page = page_number - 1;
+        if (request.getParameter("page") != null) {
+            page = (Integer.parseInt(request.getParameter("page"))) - 1;
+        }
+        log.info(Long.toString(page));
+        log.info(Long.toString(reqPagingDto.getPageSize()));
+
+        int pageSize = 3; // 한페이지에 몇개씩
+        int offsetSize = 5; // 하단 페이징 그룹 몇개까지 표시할지
 
         reqPagingDto.setPage(page);
         reqPagingDto.setPageSize(pageSize);
 
         ResPagingDto paging = pageService.getPaging(reqPagingDto);
 
-        int startPage = (((int) ((double) (page+1) / 10 + 0.9)) - 1) * 10 + 1;
+        int startPage = (((int) ((double) (page + 1) / 10 + 0.9)) - 1) * 10 + 1;
         int maxPage = (int) ((double) paging.getTotalElements() / pageSize + 0.95); // 0.95를 더해서 올림
         int endPage = maxPage;
-        if(endPage > startPage + offsetSize-1){
-            endPage = startPage + offsetSize-1;
+        if (endPage > startPage + offsetSize - 1) {
+            endPage = startPage + offsetSize - 1;
         }
 
         // 객체로 넘길예정. Wrapper에 대한 이해때문에 아직 jstl 바로 호출하기위한 편의성으로 임시로 달아둠..
+        model.addAttribute("paging",paging);
         model.addAttribute("totalPages", paging.getTotalPages());
         model.addAttribute("totalElements", paging.getTotalElements());
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
         model.addAttribute("typeNo", typeNo);
         model.addAttribute("page", page);
-//        return "redirect:/board/{typeNo}";
         log.info(Long.toString(page));
         return "boardlist";
     }

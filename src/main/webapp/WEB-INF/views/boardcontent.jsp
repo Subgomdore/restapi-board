@@ -12,6 +12,7 @@
         $(document).ready(function () {
 
             const page_number = 1;
+            const session_id = '${sessionid}';
 
             console.log('boardcontent function test');
             const typeNo = ${typeNo};
@@ -32,6 +33,7 @@
                     $('#boardContent').append(data.boardContent);
                     $('#typeNo').append(data.typeNo);
                     $('#boardNo').val(data.boardNo);
+
                 },
                 error: function (data) {
                     console.log(data);
@@ -59,7 +61,7 @@
                     }),
                     success: function (data) {
                         alert('게시글이 삭제됨')
-                        location.href='/board/'+typeNo;
+                        location.href='/board/'+typeNo+'/page/1';
                     },
                     error: function (data) {
                         console.log('삭제실패');
@@ -135,11 +137,13 @@
         </tr>
 
     </table>
+
+    <div class="writer_btn">
     <input type="button" class="btn btn-info bfoPage" value="목록"/>
     <input type="button" class="btn btn-info uppage" value="수정" />
     <input type="button" class="btn btn-info delete" value="삭제" />
     <input type="button" class="btn btn-info reply" value="답변" />
-
+    </div>
     <p>
     <form name="frm" id="frm">
         <input type="hidden" name="replyer" value="${board.writer}">

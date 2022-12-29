@@ -40,7 +40,7 @@
             success: function (data) {
                 console.log("글쓰기성공")
                 // alert("성공");
-                location.href='/board/'+typeNo;
+                location.href='/board/'+ typeNo + '/page/1';
             },
             error: function (data) {
                 alert("실패");

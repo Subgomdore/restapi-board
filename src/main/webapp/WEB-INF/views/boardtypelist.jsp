@@ -21,11 +21,11 @@
                 str = '<TR align="center">';
                 $.each(data, function (i) {
                     console.log(i)
-                    str += '<TD align="center" id="bno'+i+'"> ' + data[i].typeNo + '</TD>' +
-                        '<TD align="center" id="bname'+i+'"> <a href="/board/'+ data[i].typeNo +'/page/'+page_number+'">'+data[i].typeName+'</a></TD>';
+                    str += '<TD align="center" id="bno' + i + '"> ' + data[i].typeNo + '</TD>' +
+                        '<TD align="center" id="bname' + i + '"> <a href="/board/' + data[i].typeNo + '/page/' + page_number + '">' + data[i].typeName + '</a></TD>';
                     str += '</TR>';
                 });
-                $('.table_body').append(str);
+                $('.table_typeList').append(str);
             },
             error: function () {
                 console.log('에러');
@@ -36,7 +36,7 @@
 
 <script>
 
-    function Type_insert(){
+    function Type_insert() {
         const typeName = $('#typeName').val();
         console.log(typeName);
 
@@ -45,11 +45,11 @@
             type: 'POST',
             data_type: "json",
             contentType: 'application/json',
-            data:JSON.stringify({
-                typeName:typeName
+            data: JSON.stringify({
+                typeName: typeName
             }),
             success: function (data) {
-                location.href='board'
+                location.href = 'board'
             },
             error: function () {
                 console.log('에러');
@@ -70,18 +70,17 @@
             <td align="center">번호</td>
             <td align="center">제목</td>
         </tr>
-<%--        <c:if test="${empty list}">--%>
-<%--            <tr>--%>
-<%--                <td colspan="5">데이터가 없습니다</td>--%>
-<%--            </tr>--%>
-<%--        </c:if>--%>
+        <%--        <c:if test="${empty list}">--%>
+        <%--            <tr>--%>
+        <%--                <td colspan="5">데이터가 없습니다</td>--%>
+        <%--            </tr>--%>
+        <%--        </c:if>--%>
 
 
-        <tbody class="table_body">
+        <tbody class="table_typeList">
 
         </tbody>
     </table>
-
 
 
 </div>

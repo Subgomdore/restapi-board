@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%--<%@include file="resources/cssfile.jsp" %>--%>
+<%@include file="cssfile.jsp" %>
 <%--<%@include file="resources/loginformScript.jsp" %>--%>
 
 <!DOCTYPE html>

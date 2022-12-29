@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="resources/cssfile.jsp" %>
+<%@include file="cssfile.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -50,12 +50,12 @@
             }
             if (f.mail_list.value == "0") // 직접입력
             {
-                f.user_mail2.value = "";
-                f.user_mail2.readOnly = false;
-                f.user_mail2.focus();
+                f.userEmail2.value = "";
+                f.userEmail2.readOnly = false;
+                f.userEmail2.focus();
             } else {
-                f.user_mail2.value = f.mail_list.options[num].value;
-                f.user_mail2.readOnly = true;
+                f.userEmail2.value = f.mail_list.options[num].value;
+                f.userEmail2.readOnly = true;
             }
         }
 

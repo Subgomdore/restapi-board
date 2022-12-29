@@ -33,7 +33,6 @@
                 }
             });
 
-
             /* 수정 요청 */
             $('.btnupdate').click(function () {
                 const boardSubject = $('#boardSubject').val();

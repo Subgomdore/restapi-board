@@ -57,9 +57,15 @@ public class BoardController {
 
     /*게시글 수정하기*/
     @PostMapping("/{typeNo}/{boardNo}/update")
-    public void updateContent(@PathVariable long typeNo, @PathVariable long boardNo,@RequestBody ReqBoardDto boardDto){
+    public void updateContent(@PathVariable long typeNo, @PathVariable long boardNo, @RequestBody ReqBoardDto boardDto) {
         log.info(boardDto.getBoardContent());
         boardService.updateContent(boardDto, boardNo);
     }
+
+    @DeleteMapping("/{typeNo}/{boardNo}/delete")
+    public void deleteContent(ReqBoardDto boardDto) {
+        boardService.deleteContent(boardDto);
+    }
+
 
 }
