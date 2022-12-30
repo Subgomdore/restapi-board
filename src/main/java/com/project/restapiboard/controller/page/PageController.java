@@ -42,21 +42,23 @@ public class PageController {
     /*특정게시판안의 리스트 불러오기*/
     @RequestMapping("/board/{typeNo}/page/{page_number}")
     public String boardList(@PathVariable long typeNo, @PathVariable int page_number,
-                            ReqPagingDto reqPagingDto, HttpServletRequest request, Model model) {
+                            ReqPagingDto reqPagingDto, Model model) {
 
         /*Paging 과 관련된 객체들을 ViewPage로 전달*/
         /*해당 페이지에서는 전달받은 Object로 List 재호출*/
         log.info("/*특정게시판안의 리스트 불러오기*/");
 
         int page = page_number - 1;
-        if (request.getParameter("page") != null) {
-            page = (Integer.parseInt(request.getParameter("page"))) - 1;
-        }
+
         log.info(Long.toString(page));
         log.info(Long.toString(reqPagingDto.getPageSize()));
 
-        int pageSize = 3; // 한페이지에 몇개씩
+        int pageSize = 10; // 한페이지에 몇개씩
+        if(reqPagingDto.getPageSize() != 0) {
+            pageSize = reqPagingDto.getPageSize();
+        }
         int offsetSize = 5; // 하단 페이징 그룹 몇개까지 표시할지
+
 
         reqPagingDto.setPage(page);
         reqPagingDto.setPageSize(pageSize);

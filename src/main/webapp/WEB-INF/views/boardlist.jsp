@@ -8,11 +8,6 @@
     <title>Insert title here</title>
 </head>
 
-<%--<script>--%>
-<%--    $(function () {--%>
-<%--        $('#typeList').load('/board/list');--%>
-<%--    });--%>
-<%--</script>--%>
 
 <script>
     $(document).ready(function () {
@@ -72,13 +67,6 @@
             }
         });
     })
-
-
-    function pageSize(){
-        const pageSize = $('#pageSize').val();
-        console.log(pageSize);
-    }
-
 </script>
 <%-- 조회수 증가 Function --%>
 <script>
@@ -87,7 +75,7 @@
         const typeNo = tNo;
 
         $.ajax({
-            // URL: '/board/'+typeNo+'/'+boardNo+'/count' ,
+
             url: '/board/' + typeNo + '/' + boardNo + '/count',
             method: 'PUT',
             data_type: "json",
@@ -96,7 +84,7 @@
                 boardNo: boardNo,
                 typeNo: typeNo,
             }),
-            success: function () {
+            success: function (data) {
                 console('조회수성공')
 
             },
@@ -106,6 +94,52 @@
         })
     }
 
+
+</script>
+
+<script>
+
+    function pageSize(data) {
+        const pageSize = data.value;
+        const typeNo = $('#typeNo').val();
+        const page = ${page};
+
+        $.ajax({
+            url: '/board/' + typeNo + '/list/' + page,
+            type: 'POST',
+            // data_type: "json",
+            // contentType: 'application/json',
+            data: {
+                pageSize:pageSize,
+                typeNo: typeNo,
+            },
+            success: function (data) {
+
+                let list = data.list;
+                let paging = data.paging;
+
+                $.each(list, function (i) {
+
+                    $('.table_body').append('<TR>');
+                    $('.table_body').append('<TD align="center" id="bno' + i + '">' + list[i].typeNo + '</TD>');
+
+                    $('.table_body').append('<TD align="center" id="bsubject' + i + '"> ' +
+                        '<a class="btn btn-default" onclick="upCount(' + list[i].boardNo + ',' + list[i].typeNo + ')" ' +
+                        'href="/board/' + typeNo + '/content/' + list[i].boardNo + '">' + list[i].boardSubject + '</a></TD>');
+
+                    $('.table_body').append('<TD align="center" id="buserId' + i + '">' + list[i].userId + '</TD>');
+                    $('.table_body').append('<TD align="center" id="bcreate' + i + '">' + list[i].boardCreate + '(' + list[i].boardRevision + ')' + '</TD>');
+                    $('.table_body').append('<TD align="center" id="bcount' + i + '">' + list[i].boardCount + '</TD>');
+                    $('.table_body').append('<input type="hidden" id="bno+' + i + '" value="' + list[i].boardNo + '">');
+                    $('.table_body').append('</TD>');
+                });
+
+            },
+            error: function () {
+                console.log('에러');
+            }
+        });
+    }
 
 </script>
 <body>
@@ -140,7 +174,7 @@ paging: ${page+1} ||
             </table>
 
             <form>
-                <select onchange="pageSize()" id="pageSize">
+                <select onchange="pageSize(this)">
                     <option value="5" selected="selected" >5개씩보기</option>
                     <option value="10">10개씩보기</option>
                 </select>
