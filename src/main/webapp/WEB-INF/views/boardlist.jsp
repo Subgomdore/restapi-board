@@ -10,9 +10,11 @@
 
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(pageSize = function (data) {
         const typeNo = $("#typeNo").val();
         const page = ${page};
+        const pageSize = data.value;
+        // window.location.reload(true);
 
         /*게시판 리스트*/
         console.log('boardlist/{boardtypeNo}의 function 실행완료');
@@ -24,6 +26,7 @@
             // contentType: 'application/json',
             data: {
                 typeNo: typeNo,
+                pageSize: pageSize
             },
             success: function (data) {
 
@@ -97,9 +100,11 @@
 
 </script>
 
+<%--pageSize ~개씩 보기--%>
 <script>
 
-    function pageSize(data) {
+    function pageSize11(data) {
+        window.location.reload(true);
         const pageSize = data.value;
         console.log(pageSize)
         const typeNo = $('#typeNo').val();
@@ -108,6 +113,7 @@
         $.ajax({
             url: '/board/' + typeNo + '/list/' + page_number,
             type: 'POST',
+            async: false,
             // data_type: "json",
             // contentType: 'application/json',
             data: {
@@ -121,6 +127,7 @@
                 let paging = data.paging;
 
                 $.each(list, function (i) {
+
 
                     $('.table_body').append('<TR>');
                     $('.table_body').append('<TD align="center" id="bno' + i + '">' + list[i].typeNo + '</TD>');

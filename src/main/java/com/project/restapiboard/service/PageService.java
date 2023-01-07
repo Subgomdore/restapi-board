@@ -21,8 +21,10 @@ public class PageService {
     /*게시물 페이징*/
     public ResPagingDto getPaging(ReqPagingDto reqPagingDto) {
 
+        int pageNumber = reqPagingDto.getPage();
+        int pageSize = reqPagingDto.getPageSize();
 
-        PageRequest pageRequest = PageRequest.of(reqPagingDto.getPage(), reqPagingDto.getPageSize(), Sort.by(Sort.Direction.DESC,"boardNo"));
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC,"boardNo"));
         Type type = Type.builder().typeNo(reqPagingDto.getTypeNo()).build();
         Page<Board> page = pageRepository.findByType(type, pageRequest); // typeNo 로 검색된 데이터의 페이징
 

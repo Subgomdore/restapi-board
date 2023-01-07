@@ -53,7 +53,7 @@ public class PageController {
         log.info(Long.toString(page));
         log.info(Long.toString(reqPagingDto.getPageSize()));
 
-        int pageSize = 10; // 한페이지에 몇개씩
+        int pageSize = 1; // 한페이지에 몇개씩
         if(reqPagingDto.getPageSize() != 0) {
             pageSize = reqPagingDto.getPageSize();
         }
@@ -82,6 +82,7 @@ public class PageController {
         model.addAttribute("page", page);
         log.info(Long.toString(page));
         return "boardlist";
+//        return "redirect:/board/{typeNo}/page/{page_number}";
     }
 
     /*특정게시판의 글쓰기 페이지이동*/
