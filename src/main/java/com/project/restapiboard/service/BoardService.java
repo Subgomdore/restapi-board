@@ -45,7 +45,13 @@ public class BoardService {
          * List<Board> boardList = boardRepository.findByType_TypeNo(type); */
 
         /** JPA는 객체로 조회가 가능하다. 이 기능은 절대 잊지말고 기억하기 */
-        PageRequest pageRequest = PageRequest.of(page,3,Sort.by(Sort.Direction.DESC,"boardNo"));
+        log.info(Long.toString(reqPagingDto.getPageSize()));
+
+        int pageSize = reqPagingDto.getPageSize();
+        if(pageSize == 0){
+            pageSize = 5;
+        }
+        PageRequest pageRequest = PageRequest.of(page, pageSize,Sort.by(Sort.Direction.DESC,"boardNo"));
         Type type = Type.builder().typeNo(reqPagingDto.getTypeNo()).build();
         Page<Board> boardPage = boardRepository.findByType(type, pageRequest);
         List<Board> boardList = boardPage.getContent();

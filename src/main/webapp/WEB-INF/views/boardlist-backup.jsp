@@ -101,12 +101,11 @@
 
     function pageSize(data) {
         const pageSize = data.value;
-        console.log(pageSize)
         const typeNo = $('#typeNo').val();
-        const page_number = ${page};
+        const page = ${page};
 
         $.ajax({
-            url: '/board/' + typeNo + '/list/' + page_number,
+            url: '/board/' + typeNo + '/list/' + page,
             type: 'POST',
             // data_type: "json",
             // contentType: 'application/json',
@@ -116,7 +115,6 @@
             },
             success: function (data) {
 
-                // $('#my-form').replaceWith(data)
                 let list = data.list;
                 let paging = data.paging;
 
@@ -170,7 +168,7 @@ paging: ${page+1} ||
                     <td align="center">작성일(수정일)</td>
                     <td align="center">조회수</td>
                 </tr>
-                <tbody class="table_body" id="my-form" name="my-form">
+                <tbody class="table_body">
 
                 </tbody>
             </table>

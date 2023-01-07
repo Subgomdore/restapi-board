@@ -35,10 +35,8 @@
 </script>
 
 <script>
-
     function Type_insert() {
         const typeName = $('#typeName').val();
-        console.log(typeName);
 
         $.ajax({
             url: 'board/boardtype-add', /*BoardType Controller 요청*/
@@ -56,8 +54,8 @@
             }
         });
     }
-
 </script>
+
 <body>
 
 접속중인아이디: ${sessionid} <br>

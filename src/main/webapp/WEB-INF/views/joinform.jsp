@@ -9,10 +9,22 @@
     <title>회원가입폼</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 
+    <script>
+
+
+
+    </script>
+
     <!-- 아이디 중복검사 Ajax -->
     <script>
         function id_check() {
             const userId = $('#userId').val(); //id값이 "id"인 입력란의 값을 저장
+            {
+                var pattern= new RegExp(/^[a-z0-9_]+$/);
+                //영문 소문자,숫자 ,_가능,정규표현식
+                return pattern.test(userId);
+            };
+
             $.ajax({
                 url: 'user/idCheck', //Controller에서 요청 받을 주소
                 type: 'post', //POST 방식으로 전달
